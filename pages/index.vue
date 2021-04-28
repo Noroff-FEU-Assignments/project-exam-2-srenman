@@ -9,8 +9,12 @@
       ></div>
 
       <!-- Static sidebar for desktop -->
-      <div class="hidden bg-indigo-700 md:flex md:flex-shrink-0">
-        <div class="flex flex-col w-96">GRAVFERDSHJELP</div>
+      <div
+        class="hidden bg-primary-500 text-white md:flex md:flex-shrink-0 items-center justify-center"
+      >
+        <div class="flex flex-col w-96 text-center">
+          <h1 class="">Minnessider</h1>
+        </div>
       </div>
       <div class="flex flex-col w-0 flex-1 overflow-hidden">
         <div class="relative z-10 flex-shrink-0 flex h-16 bg-white shadow">
