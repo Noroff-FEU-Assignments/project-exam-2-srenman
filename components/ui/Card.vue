@@ -2,53 +2,61 @@
   <div
     class="flex flex-col flex-initial w-80 m-4 rounded-lg shadow-lg overflow-hidden"
   >
-    <div class="flex-shrink-0">
+    <div class="flex-shrink-0 relative">
       <img
         class="h-48 w-full object-cover"
-        src="https://images.unsplash.com/photo-1547586696-ea22b4d4235d?ixlib=rb-1.2.1&ixqx=jiU6DFBkaq&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1679&q=80"
+        src="https://images.unsplash.com/photo-1474533883693-59a44dbb964e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2250&q=80"
         alt=""
+      />
+      <img
+        class="h-44 w-44 rounded-full absolute top-2 left-16 object-cover"
+        src="https://images.unsplash.com/photo-1544819576-82e8d26e7d22?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=934&q=80"
+        alt="Portrait"
       />
     </div>
     <div class="flex-1 bg-white p-6 flex flex-col justify-between">
-      <div class="flex-1">
-        <p class="text-sm font-medium text-indigo-600">
-          <a href="#" class="hover:underline"> Video </a>
-        </p>
+      <div class="flex-1 text-center">
         <a href="#" class="block mt-2">
-          <p class="text-xl font-semibold text-gray-900">
-            How to use search engine optimization to drive sales
-          </p>
-          <p class="mt-3 text-base text-gray-500">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit
-            facilis asperiores porro quaerat doloribus, eveniet dolore. Adipisci
-            tempora aut inventore optio animi., tempore temporibus quo
-            laudantium.
+          <h2 class="text-md font-medium text-gray-900">
+            Karl Olav Anker Johansen
+          </h2>
+          <h3 class="text-md text-gray-500">1.4.1928 - 23.12.2020</h3>
+          <p class="my-3 text-base text-gray-500">
+            Begravelse fra Borge Kirke fredag 8. januar 2021
           </p>
         </a>
       </div>
-      <div class="mt-6 flex items-center">
-        <div class="flex-shrink-0">
-          <a href="#">
-            <span class="sr-only">Brenna Goyette</span>
-            <img
-              class="h-10 w-10 rounded-full"
-              src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&ixqx=jiU6DFBkaq&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-              alt=""
-            />
-          </a>
-        </div>
-        <div class="ml-3">
-          <p class="text-sm font-medium text-gray-900">
-            <a href="#" class="hover:underline"> Brenna Goyette </a>
-          </p>
-          <div class="flex space-x-1 text-sm text-gray-500">
-            <time datetime="2020-03-10"> Mar 10, 2020 </time>
-            <span aria-hidden="true"> &middot; </span>
-            <span> 4 min read </span>
-          </div>
-        </div>
-      </div>
+    </div>
+    <div class="flex bg-white items-center border border-t">
+      <a
+        href="#"
+        class="w-full flex items-center justify-center py-4 border-r hover:bg-primary-100"
+      >
+        <AddUser class="text-gray-400" />
+        <p class="text-sm ml-2 text-center font-medium text-gray-700">
+          Påmelding
+        </p>
+      </a>
+      <a
+        href="#"
+        class="w-full flex items-center justify-center py-4 hover:bg-primary-100"
+      >
+        <Write class="text-gray-400" />
+        <p class="text-sm ml-2 text-center font-medium text-gray-700">
+          <a href="#"> Skriv hilsen</a>
+        </p>
+      </a>
     </div>
   </div>
 </template>
-<script></script>
+<script>
+import Write from '../../assets/svg/Write'
+import AddUser from '../../assets/svg/AddUser'
+
+export default {
+  components: {
+    Write,
+    AddUser,
+  },
+}
+</script>
