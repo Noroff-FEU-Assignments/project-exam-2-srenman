@@ -34,7 +34,14 @@ export default {
     '@nuxtjs/eslint-module',
     // https://go.nuxtjs.dev/tailwindcss
     '@nuxtjs/tailwindcss',
+    '@nuxtjs/google-fonts',
   ],
+  googleFonts: {
+    families: {
+      Inter: [300, 400, 500, 600],
+      'Cormorant+Garamond': [100, 300, 400, 500],
+    },
+  },
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [

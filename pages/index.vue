@@ -10,10 +10,19 @@
 
       <!-- Static sidebar for desktop -->
       <div
-        class="hidden bg-primary-500 text-white md:flex md:flex-shrink-0 items-center justify-center"
+        class="hidden bg-primary-500 text-white md:flex md:flex-shrink-0 items-center"
       >
-        <div class="flex flex-col w-96 text-center">
-          <h1 class="">Minnessider</h1>
+        <div class="flex items-center pb-24 flex-col w-96 text-center">
+          <div class="w-40 mb-12">
+            <Logo />
+          </div>
+          <Heading>Minnessider</Heading>
+          <Paragraph class="mt-6 px-10 text-left">
+            Body copy sit amet, consectetuer adipiscing elit, sed diam nonummy.
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
+            nonummy Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
+            sed diam nonummy
+          </Paragraph>
         </div>
       </div>
       <div class="flex flex-col w-0 flex-1 overflow-hidden">
@@ -76,7 +85,9 @@
           </div>
         </div>
 
-        <main class="flex-1 relative overflow-y-auto focus:outline-none">
+        <main
+          class="flex-1 relative overflow-y-auto font-sans focus:outline-none"
+        >
           <div class="py-6">
             <div class="max-w-7xl mx-auto px-6 flex flex-wrap">
               <Card />
@@ -93,11 +104,17 @@
 
 <script>
 import { mapMutations } from 'vuex'
+import Logo from '../assets/Logo'
 import Card from '../components/ui/Card'
+import Heading from '../components/ui/typography/Heading'
+import Paragraph from '../components/ui/typography/Paragraph'
 
 export default {
   components: {
+    Logo,
     Card,
+    Heading,
+    Paragraph,
   },
   methods: {
     ...mapMutations(['increment']),

@@ -1,5 +1,8 @@
 module.exports = {
   theme: {
+    fontFamily: {
+      sans: ['Inter', 'sans-serif'],
+    },
     extend: {
       colors: {
         primary: {
@@ -24,6 +27,9 @@ module.exports = {
           200: '#F4F2F1',
           100: '#FBFBFA',
         },
+      },
+      fontFamily: {
+        cormorant: ['Cormorant Garamond', 'serif'],
       },
     },
   },
