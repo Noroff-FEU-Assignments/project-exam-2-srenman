@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="h-screen flex overflow-hidden bg-gray-100">
+    <div class="h-screen flex overflow-hidden bg-secondary-100">
       <!-- Off-canvas menu for mobile, show/hide based on off-canvas menu state. -->
       <div
         class="fixed inset-0 flex z-40 md:hidden"
