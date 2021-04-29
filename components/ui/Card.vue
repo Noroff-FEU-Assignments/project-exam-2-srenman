@@ -16,7 +16,7 @@
     </div>
     <div class="flex-1 bg-white p-6 flex flex-col justify-between">
       <div class="flex-1 text-center">
-        <a href="#" class="block mt-2">
+        <a href="obituary" class="block mt-2">
           <h2 class="text-md font-medium text-gray-900">
             Karl Olav Anker Johansen
           </h2>
