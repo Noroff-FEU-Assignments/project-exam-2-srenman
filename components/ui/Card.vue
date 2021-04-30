@@ -41,21 +41,21 @@
         href="#"
         class="w-full flex items-center justify-center py-4 hover:bg-primary-100"
       >
-        <Write class="text-gray-400" />
+        <WriteIcon class="text-gray-400" />
         <p class="text-sm ml-2 text-center font-medium text-gray-700">
-          <a href="#"> Skriv hilsen</a>
+          <a href="#">Skriv hilsen</a>
         </p>
       </a>
     </div>
   </div>
 </template>
 <script>
-import Write from '../../assets/svg/Write'
-import AddUser from '../../assets/svg/AddUser'
+import WriteIcon from '../../assets/svg/write.svg?inline'
+import AddUser from '../../assets/svg/addUser.svg?inline'
 
 export default {
   components: {
-    Write,
+    WriteIcon,
     AddUser,
   },
 }
