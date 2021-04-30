@@ -55,6 +55,7 @@
         </PrimaryButton>
       </div>
     </div>
+    <RegisterAttendance />
   </div>
 </template>
 <script>
@@ -66,6 +67,7 @@ import InformationIcon from '../../assets/svg/information.svg?inline'
 import VideoIcon from '../../assets/svg/video.svg?inline'
 import WriteIcon from '../../assets/svg/write.svg?inline'
 import ExitIcon from '../../assets/svg/exitPage.svg?inline'
+import RegisterAttendance from '../../components/funeral/RegisterAttendance'
 
 export default {
   components: {
@@ -77,6 +79,7 @@ export default {
     VideoIcon,
     WriteIcon,
     ExitIcon,
+    RegisterAttendance,
   },
   layout: 'obituary',
 }
