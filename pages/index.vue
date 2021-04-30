@@ -16,7 +16,7 @@
           <div class="w-40 mb-12">
             <Logo />
           </div>
-          <Heading>Minnessider</Heading>
+          <Heading class="text-5xl">Minnessider</Heading>
           <Paragraph class="mt-6 px-10 text-left">
             Body copy sit amet, consectetuer adipiscing elit, sed diam nonummy.
             Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
