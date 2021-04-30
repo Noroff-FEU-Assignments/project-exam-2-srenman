@@ -14,12 +14,7 @@
     >
     <div class="bg-white w-10/12 mx-auto mb-20 rounded-lg border">
       <!-- Condolances Here -->
-      <CondolanceLine
-        author="Jens Nordmann"
-        time="5 minuter"
-        heart="true"
-        candle="true"
-      >
+      <CondolanceLine author="Jens Nordmann" time="5 minuter">
         Dette var bare trist
       </CondolanceLine>
       <CondolanceLine

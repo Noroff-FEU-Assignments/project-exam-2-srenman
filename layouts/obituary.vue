@@ -21,15 +21,15 @@
         </div>
       </div>
       <div class="my-10">
-        <a
-          href="#"
+        <nuxt-link
+          to="/obituary"
           class="bg-primary-500 px-6 py-2 rounded-md hover:bg-primary-700 text-white mx-2"
-          >Kondolanser</a
+          >Kondolanser</nuxt-link
         >
-        <a
-          href="#"
+        <nuxt-link
+          to="/obituary/funeral"
           class="bg-primary-500 px-6 py-2 rounded-md hover:bg-primary-700 text-white"
-          >Begravelse</a
+          >Begravelse</nuxt-link
         >
       </div>
       <div><img src="../assets/img/obituary-1.png" alt="Dødsannonse" /></div>

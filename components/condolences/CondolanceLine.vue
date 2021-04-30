@@ -34,12 +34,12 @@ export default {
       type: String,
     },
     heart: {
-      default: false,
-      type: Boolean,
+      default: '',
+      type: String,
     },
     candle: {
-      default: false,
-      type: Boolean,
+      default: '',
+      type: String,
     },
   },
 }
