@@ -2,7 +2,10 @@
   <div>
     <div class="bg-white py-4 px-8 flex justify-between">
       <Heading>Kondolanser</Heading>
-      <PrimaryButton>Legg til hilsen</PrimaryButton>
+      <PrimaryButton @click="AddMessage = true">
+        <span slot="icon"><MailIcon /></span>
+        <span slot="text" class="ml-2">Legg til hilsen</span></PrimaryButton
+      >
     </div>
     <Poem author="Kolbein Falkeid"
       >I livet mitt kom og gikk du som en komet. Ikke at jeg var sola,
@@ -46,6 +49,7 @@
         Dette var bare trist. Mange gode minner fra ungdommen. Hvil i fred
       </CondolanceLine>
     </div>
+    <AddMessage v-if="AddMessage" @click="AddMessage = false" />
   </div>
 </template>
 <script>
@@ -53,13 +57,24 @@ import Heading from '../../components/ui/typography/Heading'
 import PrimaryButton from '../../components/ui/buttons/PrimaryButton'
 import Poem from '../../components/ui/typography/Poem'
 import CondolanceLine from '../../components/condolences/CondolanceLine'
+import MailIcon from '../../assets/svg/mail.svg?inline'
+import AddMessage from '../../components/condolences/AddMessage'
+
 export default {
   components: {
     Heading,
     PrimaryButton,
     Poem,
     CondolanceLine,
+    MailIcon,
+    AddMessage,
   },
   layout: 'obituary',
+  data() {
+    return {
+      AddMessage: false,
+    }
+  },
+  methods: {},
 }
 </script>

@@ -44,9 +44,15 @@
           </div>
         </div>
       </div>
-      <div class="mt-6">
-        <PrimaryButton>Registrer din deltakelse</PrimaryButton>
-        <PrimaryButton>Bestill blomster</PrimaryButton>
+      <div class="mt-6 flex">
+        <PrimaryButton class="mr-4">
+          <span slot="icon" class="mr-2"><WriteIcon /></span>
+          <span slot="text"> Registrer din deltakelse</span></PrimaryButton
+        >
+        <PrimaryButton>
+          <span slot="icon" class="mr-2"><ExitIcon class="text-white" /></span>
+          <span slot="text">Bestill blomster</span>
+        </PrimaryButton>
       </div>
     </div>
   </div>
@@ -58,6 +64,8 @@ import LocationIcon from '../../assets/svg/location.svg?inline'
 import CalendarIcon from '../../assets/svg/calendar.svg?inline'
 import InformationIcon from '../../assets/svg/information.svg?inline'
 import VideoIcon from '../../assets/svg/video.svg?inline'
+import WriteIcon from '../../assets/svg/write.svg?inline'
+import ExitIcon from '../../assets/svg/exitPage.svg?inline'
 
 export default {
   components: {
@@ -67,6 +75,8 @@ export default {
     CalendarIcon,
     InformationIcon,
     VideoIcon,
+    WriteIcon,
+    ExitIcon,
   },
   layout: 'obituary',
 }
