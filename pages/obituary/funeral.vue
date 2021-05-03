@@ -45,17 +45,20 @@
         </div>
       </div>
       <div class="mt-6 flex">
-        <PrimaryButton class="mr-4">
+        <PrimaryButton class="mr-4" @click="RegisterAttendance = true">
           <span slot="icon" class="mr-2"><WriteIcon /></span>
           <span slot="text"> Registrer din deltakelse</span></PrimaryButton
         >
-        <PrimaryButton>
+        <PrimaryLink link="https://www.leknesblomster.no/">
           <span slot="icon" class="mr-2"><ExitIcon class="text-white" /></span>
           <span slot="text">Bestill blomster</span>
-        </PrimaryButton>
+        </PrimaryLink>
       </div>
     </div>
-    <RegisterAttendance />
+    <RegisterAttendance
+      v-if="RegisterAttendance"
+      @click="RegisterAttendance = false"
+    />
   </div>
 </template>
 <script>
@@ -68,6 +71,7 @@ import VideoIcon from '../../assets/svg/video.svg?inline'
 import WriteIcon from '../../assets/svg/write.svg?inline'
 import ExitIcon from '../../assets/svg/exitPage.svg?inline'
 import RegisterAttendance from '../../components/funeral/RegisterAttendance'
+import PrimaryLink from '../../components/ui/buttons/PrimaryLink'
 
 export default {
   components: {
@@ -80,7 +84,13 @@ export default {
     WriteIcon,
     ExitIcon,
     RegisterAttendance,
+    PrimaryLink,
   },
   layout: 'obituary',
+  data() {
+    return {
+      RegisterAttendance: false,
+    }
+  },
 }
 </script>

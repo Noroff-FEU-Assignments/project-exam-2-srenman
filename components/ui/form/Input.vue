@@ -75,8 +75,8 @@ export default {
       default: false,
     },
     explanation: {
-      type: Boolean,
-      default: false,
+      type: String,
+      default: '',
     },
     error: {
       default: false,
