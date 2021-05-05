@@ -67,8 +67,8 @@
               <!-- Current: "text-gray-300", Default: "text-gray-400 group-hover:text-gray-300" -->
               <!-- Heroicon name: outline/home -->
               <div>
-                <a
-                  href="#"
+                <Nuxt-link
+                  to="/admin"
                   class="text-gray-300 hover:bg-gray-700 hover:text-white group flex items-center px-2 py-2 text-base font-medium rounded-md"
                 >
                   <!-- Heroicon name: outline/users -->
@@ -88,10 +88,10 @@
                     />
                   </svg>
                   Team
-                </a>
+                </Nuxt-link>
 
-                <a
-                  href="#"
+                <Nuxt-link
+                  to="admin/arkiv"
                   class="text-gray-300 hover:bg-gray-700 hover:text-white group flex items-center px-2 py-2 text-base font-medium rounded-md"
                 >
                   <!-- Heroicon name: outline/folder -->
@@ -111,10 +111,10 @@
                     />
                   </svg>
                   Projects
-                </a>
+                </Nuxt-link>
 
-                <a
-                  href="#"
+                <Nuxt-link
+                  to="admin/create"
                   class="text-gray-300 hover:bg-gray-700 hover:text-white group flex items-center px-2 py-2 text-base font-medium rounded-md"
                 >
                   <!-- Heroicon name: outline/calendar -->
@@ -134,7 +134,7 @@
                     />
                   </svg>
                   Calendar
-                </a>
+                </Nuxt-link>
               </div>
             </nav>
           </div>
