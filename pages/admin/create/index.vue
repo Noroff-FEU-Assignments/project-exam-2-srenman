@@ -243,7 +243,7 @@
           </nuxt-link>
         </li>
         <nuxt-link
-          to="create/admin/step-2"
+          to="/admin/create/step-2"
           class="bg-indigo-500 py-2 px-4 text-white rounded-md hover:bg-indigo-700 flex items-center"
         >
           <span>Lagre og gå videre</span>
