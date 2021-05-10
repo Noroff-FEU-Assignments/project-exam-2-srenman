@@ -5,49 +5,86 @@
     <div class="sm:mx-auto sm:w-full sm:max-w-md">
       <Logo class="h-32 mx-auto" />
       <h2 class="mt-6 text-center text-4xl font-cormorant text-white">
-        Register an account
+        Registrer en bruker
       </h2>
       <p class="mt-2 text-center text-sm text-white">
-        Or
+        eler
         <nuxt-link
           to="login"
           class="font-semibold text-white hover:text-secondary-500"
         >
-          login here.
+          logg in her.
         </nuxt-link>
       </p>
     </div>
 
     <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
       <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-        <form class="space-y-6" action="#" method="POST">
+        <form class="space-y-6" @submit.prevent="submit">
           <Input
-            id="firstName"
-            label="First name"
-            name="fname"
-            autocomplete="given-name"
+            id="companyName"
+            v-model="companyName"
+            label="Bedriftnavn"
+            name="companyName"
+            data-location="companyName"
+            @change="handleInputChange"
           />
           <Input
-            id="lastName"
-            label="Last name"
-            name="lname"
-            autocomplete="family-name"
+            id="companyEmail"
+            v-model="companyEmail"
+            type="email"
+            label="Epost til bedriften"
+            name="email"
+            data-location="companyEmail"
+            @change="handleInputChange"
+          />
+
+          <Input
+            id="street"
+            v-model="street"
+            label="Adresse"
+            name="street"
+            data-location="street"
+            @change="handleInputChange"
+          />
+          <Input
+            id="zipCode"
+            v-model="zipCode"
+            label="Postkode"
+            name="zipCode"
+            data-location="zipCode"
+            @change="handleInputChange"
+          />
+          <Input
+            id="city"
+            v-model="city"
+            label="Sted"
+            name="city"
+            data-location="city"
+            @change="handleInputChange"
+          />
+          <div class="bg-gray-200 h-0.5"></div>
+
+          <Input
+            id="name"
+            v-model="name"
+            label="Ditt navn"
+            name="name"
+            autocomplete="name"
+            data-location="name"
+            @change="handleInputChange"
           />
           <Input
             id="email"
+            v-model="email"
             type="email"
-            label="Email address"
+            label="Din epost (denne brukes for å logge in med)"
             name="email"
             autocomplete="email"
+            data-location="email"
             @change="handleInputChange"
           />
-          <Input
-            id="phone"
-            label="Phonenumber"
-            name="phone"
-            autocomplete="tel"
-            @change="handleInputChange"
-          />
+
           <Input
             id="password"
             v-model="password"
@@ -55,7 +92,7 @@
             label="Create Password"
             name="password"
             autocomplete="new-password"
-            required="false"
+            data-location="password"
             @change="handleInputChange"
           />
           <Input
@@ -63,9 +100,8 @@
             v-model="confirmPassword"
             type="password"
             label="Repeat Password"
-            name="repeatPassword"
-            autocomplete="new-password"
-            required="false"
+            name="confirmPassword"
+            data-location="confirmPassword"
             @change="handleInputChange"
           />
 
@@ -85,11 +121,71 @@
 <script>
 import Logo from '@/assets/Logo'
 import Input from '@/components/ui/form/Input'
+import { mapActions } from 'vuex'
 
 export default {
   components: {
     Logo,
     Input,
+  },
+  data() {
+    return {
+      companyName: '',
+      companyEmail: '',
+      street: '',
+      zipCode: '',
+      city: '',
+      name: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
+      passwordsMatch: false,
+      error: false,
+      errorMessage: '',
+    }
+  },
+  methods: {
+    ...mapActions(['registerTenant']),
+
+    async submit() {
+      await this.comparePasswords(this.password, this.confirmPassword)
+
+      if (this.passwordsMatch === true) {
+        try {
+          this.registerTenant({
+            company: {
+              name: this.companyName,
+              email: this.companyEmail,
+              address: this.street,
+              zipcode: this.zipCode,
+              city: this.city,
+            },
+            name: this.name,
+            email: this.email,
+            password: this.password,
+          })
+        } catch (e) {
+          this.errorMessage = e.response.data.error
+          this.error = true
+          console.log(e.response.data)
+        }
+      } else {
+        this.errorMessage = 'The passwords did not match'
+        this.error = true
+      }
+    },
+
+    handleInputChange({ value, dataLocation }) {
+      this[dataLocation] = value
+    },
+    comparePasswords(password, confirmPassword) {
+      if (password === confirmPassword) {
+        console.log('passwords match')
+        return (this.passwordsMatch = true)
+      } else {
+        console.log('password does not match')
+      }
+    },
   },
 }
 </script>

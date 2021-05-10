@@ -52,7 +52,7 @@ export default {
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    baseURL: '',
+    baseURL: process.env.BASE_URL || 'http://staging.minneapi.no/',
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build

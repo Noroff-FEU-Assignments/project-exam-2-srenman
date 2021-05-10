@@ -82,6 +82,10 @@ export default {
       default: false,
       type: Boolean,
     },
+    dataLocation: {
+      type: String,
+      default: '',
+    },
   },
   data() {
     return {
