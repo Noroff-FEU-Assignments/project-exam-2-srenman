@@ -6,10 +6,16 @@
 </template>
 <script>
 import Table from '@/components/ui/table/Table'
+import { mapActions } from 'vuex'
+
 export default {
   components: {
     Table,
   },
   layout: 'admin',
+
+  methods: {
+    ...mapActions(['registerTenant']),
+  },
 }
 </script>

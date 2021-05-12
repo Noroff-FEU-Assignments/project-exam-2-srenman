@@ -10,25 +10,46 @@
           />
         </div>
         <div class="ml-4">
-          <div class="text-sm font-medium text-gray-900">Jane Cooper</div>
-          <div class="text-sm text-gray-500">jane.cooper@example.com</div>
+          <div class="text-sm font-medium text-gray-900">{{ data.name }}</div>
+          <div class="text-sm text-gray-500">
+            {{ data.person_information.birthday }} -
+            {{ data.person_information.deceased }}
+          </div>
         </div>
       </div>
     </td>
     <td class="px-6 py-4 whitespace-nowrap">
-      <div class="text-sm text-gray-900">Regional Paradigm Technician</div>
-      <div class="text-sm text-gray-500">Optimization</div>
+      <div class="text-sm text-gray-900">
+        {{ data.funeral_information.date }}
+      </div>
+      <div class="text-sm text-gray-500">
+        {{ data.funeral_information.church }}
+      </div>
     </td>
     <td class="px-6 py-4 whitespace-nowrap">
       <span
         class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"
       >
-        Active
+        Aktiv
       </span>
     </td>
 
     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-      <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+      <nuxt-link
+        :to="`/admin/obituary/${data.id}`"
+        class="text-indigo-600 hover:text-indigo-900"
+        >Rediger</nuxt-link
+      >
     </td>
   </tr>
 </template>
+<script>
+export default {
+  props: {
+    data: {
+      type: [String, Object],
+      default: '',
+    },
+  },
+}
+</script>

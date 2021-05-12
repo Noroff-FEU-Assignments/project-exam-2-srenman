@@ -180,10 +180,9 @@ export default {
     },
     comparePasswords(password, confirmPassword) {
       if (password === confirmPassword) {
-        console.log('passwords match')
         return (this.passwordsMatch = true)
       } else {
-        console.log('password does not match')
+        return (this.passwordsMatch = false)
       }
     },
   },

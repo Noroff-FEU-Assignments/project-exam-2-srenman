@@ -13,16 +13,40 @@ export const actions = {
   setLoading({ commit }, status) {
     commit('setLoading', status)
   },
-
+  // Auth calls
   async registerTenant({ commit }, data) {
     try {
-      const authRes = await axios.post('/auth/register', {
-        company: data.company,
-        name: data.name,
-        email: data.email,
-        password: data.password,
-      })
+      const authRes = await axios.post(
+        'http://staging.minneapi.no/auth/register',
+        {
+          company: data.company,
+          name: data.name,
+          email: data.email,
+          password: data.password,
+        }
+      )
       await commit('setTenant', authRes.config.data)
+    } catch (error) {
+      console.log(error)
+    }
+  },
+
+  async login({ commit }, user) {
+    const response = await axios.post(
+      'http://staging.minneapi.no/auth/login',
+      user
+    )
+    console.log(response)
+    console.log(commit)
+  },
+
+  // Obituary calls
+  async Obituaries({ commit }) {
+    try {
+      await axios.get('person').then((response) => {
+        console.log(response)
+        console.log(commit)
+      })
     } catch (error) {
       console.log(error)
     }

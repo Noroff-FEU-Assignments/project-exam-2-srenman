@@ -20,14 +20,13 @@
 
     <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
       <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-        <form class="space-y-6" action="#" method="POST">
+        <form class="space-y-6" @submit.prevent="submit">
           <Input
             id="email"
             v-model="email"
             type="text"
             label="Email adress"
             name="email"
-            required="false"
             data-location="email"
             @change="handleInputChange"
           />
@@ -39,7 +38,6 @@
             label="Password"
             name="password"
             data-location="password"
-            required="false"
             @change="handleInputChange"
           />
 
@@ -59,11 +57,36 @@
 <script>
 import Logo from '@/assets/Logo'
 import Input from '@/components/ui/form/Input'
+import { mapActions } from 'vuex'
 
 export default {
   components: {
     Logo,
     Input,
+  },
+  data() {
+    return {
+      email: '',
+      password: '',
+    }
+  },
+  methods: {
+    ...mapActions(['login']),
+    async submit() {
+      try {
+        await this.login({
+          username: this.email,
+          password: this.password,
+        })
+      } catch (e) {
+        this.errorMessage = e.response.data.error
+        this.error = true
+        console.log(e.response.data)
+      }
+    },
+    handleInputChange({ value, dataLocation }) {
+      this[dataLocation] = value
+    },
   },
 }
 </script>
