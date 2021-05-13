@@ -49,7 +49,11 @@
     </div>
     <!-- Phone and tablet -->
     <div class="lg:hidden">
-      <horizontal-line />
+      <horizontal-line
+        v-for="obituary in obituaries"
+        :key="obituary.id"
+        :data="obituary"
+      />
     </div>
   </div>
 </template>
@@ -68,6 +72,7 @@ export default {
         {
           id: '123',
           name: 'Ola Nordmann',
+          status: 'Aktiv',
           person_information: {
             birthday: '1934.04.23',
             deceased: '2021.04.26',
@@ -81,6 +86,7 @@ export default {
         {
           id: '124',
           name: 'Anker Olav Jenssen',
+          status: 'Arkivert',
           person_information: {
             birthday: '1934-04-23',
             deceased: '2021-04-26',
@@ -94,6 +100,7 @@ export default {
         {
           id: '125',
           name: 'bal',
+          status: 'Aktiv',
           person_information: {
             birthday: '1934-04-23',
             deceased: '2021-04-26',
