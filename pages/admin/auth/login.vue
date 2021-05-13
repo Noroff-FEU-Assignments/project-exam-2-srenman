@@ -74,19 +74,30 @@ export default {
     ...mapActions(['login']),
     async submit() {
       try {
-        await this.login({
-          username: this.email,
-          password: this.password,
+        const response = await this.$axios.$post('auth/login', {
+          email: 'sandra@iotek.no',
+          password: 'password',
         })
-      } catch (e) {
-        this.errorMessage = e.response.data.error
-        this.error = true
-        console.log(e.response.data)
+
+        console.log(response)
+      } catch (error) {
+        console.log(error)
       }
     },
-    handleInputChange({ value, dataLocation }) {
-      this[dataLocation] = value
-    },
+
+    // try {
+    //   await this.login({
+    //     username: this.email,
+    //     password: this.password,
+    //   })
+    // } catch (e) {
+    //   this.errorMessage = e.response.data.error
+    //   this.error = true
+    //   console.log(e.response.data)
+    // }
+  },
+  handleInputChange({ value, dataLocation }) {
+    this[dataLocation] = value
   },
 }
 </script>

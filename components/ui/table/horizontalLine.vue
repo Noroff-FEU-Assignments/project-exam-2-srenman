@@ -9,7 +9,11 @@
             {{ data.person_information.deceased }}
           </div>
         </div>
-        <a href="#" class="text-indigo-600 hover:text-indigo-900 pr-2">Edit</a>
+        <nuxt-link
+          :to="`/admin/obituary/${data.id}`"
+          class="text-indigo-600 hover:text-indigo-900 pr-2"
+          >Rediger</nuxt-link
+        >
       </div>
       <div class="flex justify-between">
         <div>

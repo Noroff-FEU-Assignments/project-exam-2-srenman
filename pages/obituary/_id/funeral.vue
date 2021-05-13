@@ -62,16 +62,16 @@
   </div>
 </template>
 <script>
-import Heading from '../../components/ui/typography/Heading'
-import PrimaryButton from '../../components/ui/buttons/PrimaryButton'
-import LocationIcon from '../../assets/svg/location.svg?inline'
-import CalendarIcon from '../../assets/svg/calendar.svg?inline'
-import InformationIcon from '../../assets/svg/information.svg?inline'
-import VideoIcon from '../../assets/svg/video.svg?inline'
-import WriteIcon from '../../assets/svg/write.svg?inline'
-import ExitIcon from '../../assets/svg/exitPage.svg?inline'
-import RegisterAttendance from '../../components/funeral/RegisterAttendance'
-import PrimaryLink from '../../components/ui/buttons/PrimaryLink'
+import Heading from '@/components/ui/typography/Heading'
+import PrimaryButton from '@/components/ui/buttons/PrimaryButton'
+import LocationIcon from '@/assets/svg/location.svg?inline'
+import CalendarIcon from '@/assets/svg/calendar.svg?inline'
+import InformationIcon from '@/assets/svg/information.svg?inline'
+import VideoIcon from '@/assets/svg/video.svg?inline'
+import WriteIcon from '@/assets/svg/write.svg?inline'
+import ExitIcon from '@/assets/svg/exitPage.svg?inline'
+import RegisterAttendance from '@/components/funeral/RegisterAttendance'
+import PrimaryLink from '@/components/ui/buttons/PrimaryLink'
 
 export default {
   components: {
