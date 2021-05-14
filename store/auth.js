@@ -10,7 +10,10 @@ export const state = getDefaultState
 export const actions = {
   async login({ commit, user }) {
     try {
-      const authRes = await this.$axios.$post('/auth/login', user)
+      const authRes = await this.$axios.$post('/auth/login', {
+        email: 'sandra@iotek.no',
+        password: 'password',
+      })
       commit('setToken', authRes.access_token)
       this.$router.push('/admin')
       return { auth: true }

@@ -23,20 +23,20 @@
         <form class="space-y-6" @submit.prevent="submit">
           <Input
             id="email"
+            :error="getError('email')"
             type="text"
             label="Email adress"
             name="email"
             :value.sync="user.email"
-            @change="handleInputChange"
           />
 
           <Input
             id="password"
+            :error="getError('password')"
             type="password"
             label="Password"
             name="password"
             :value.sync="user.password"
-            @change="handleInputChange"
           />
 
           <div>
@@ -68,20 +68,34 @@ export default {
         email: 'sandra@iotek.no',
         password: 'password',
       },
+      errors: {},
     }
   },
   methods: {
     ...mapActions('auth', ['login']),
+
+    isError(prop) {
+      if (!this.errors) return false
+      return this.errors[prop] !== undefined
+    },
+    getError(prop) {
+      return this.isError(prop) ? this.errors[prop][0] : ''
+    },
+
     async submit() {
-      console.log(this.user)
       this.loading = true
       const response = await this.login(this.user)
       this.loading = false
 
       console.log(response)
-    },
-    handleInputChange({ value, dataLocation }) {
-      this[dataLocation] = value
+
+      this.errors = response.errors
+      if (response.error === 'Unauthorized') {
+        this.errors = {
+          password: 'aefr',
+          email: 'asdfsdf',
+        }
+      }
     },
   },
 }
