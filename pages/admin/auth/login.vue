@@ -19,6 +19,12 @@
     </div>
 
     <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+      <div
+        v-if="loading"
+        class="absolute inset-0 bg-gray-200 bg-opacity-75 z-50 sm:rounded-lg flex items-center justify-center"
+      >
+        <Loader class="w-16 mx-auto animate-spin text-gray-500" />
+      </div>
       <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
         <form class="space-y-6" @submit.prevent="submit">
           <Input
@@ -56,15 +62,18 @@
 import Logo from '@/assets/Logo'
 import Input from '@/components/ui/form/Input'
 import { mapActions } from 'vuex'
+import Loader from '@/assets/svg/loader.svg?inline'
 
 export default {
   components: {
     Logo,
     Input,
+    Loader,
   },
   middleware: ['login'],
   data() {
     return {
+      loading: false,
       user: {
         email: 'sandra@iotek.no',
         password: 'password',

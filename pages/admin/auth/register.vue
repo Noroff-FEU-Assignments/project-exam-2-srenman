@@ -145,7 +145,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['registerTenant']),
+    ...mapActions('auth', ['registerTenant']),
 
     async submit() {
       await this.comparePasswords(this.password, this.confirmPassword)

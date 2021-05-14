@@ -117,8 +117,6 @@ export default {
       ],
     }
   },
-  mounted() {
-    console.log(this.obituaries)
-  },
+  mounted() {},
 }
 </script>
