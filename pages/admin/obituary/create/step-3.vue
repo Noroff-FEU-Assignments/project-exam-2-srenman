@@ -98,5 +98,6 @@ export default {
     CondolanceLine,
   },
   layout: 'admin',
+  middleware: ['auth'],
 }
 </script>

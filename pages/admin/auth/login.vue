@@ -62,6 +62,7 @@ export default {
     Logo,
     Input,
   },
+  middleware: ['login'],
   data() {
     return {
       user: {

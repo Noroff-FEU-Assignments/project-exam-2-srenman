@@ -13,6 +13,7 @@ export default {
     Table,
   },
   layout: 'admin',
+  middleware: ['auth'],
 
   methods: {
     ...mapActions(['registerTenant']),
