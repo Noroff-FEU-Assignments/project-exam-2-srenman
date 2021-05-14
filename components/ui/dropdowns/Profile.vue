@@ -64,7 +64,7 @@ export default {
     toggleDropdown() {
       this.visible = !this.visible
     },
-    ...mapActions(['logout']),
+    ...mapActions({ logout: 'auth/logout' }),
   },
 }
 </script>

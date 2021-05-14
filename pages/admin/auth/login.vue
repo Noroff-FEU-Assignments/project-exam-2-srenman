@@ -23,21 +23,19 @@
         <form class="space-y-6" @submit.prevent="submit">
           <Input
             id="email"
-            v-model="email"
             type="text"
             label="Email adress"
             name="email"
-            data-location="email"
+            :value.sync="user.email"
             @change="handleInputChange"
           />
 
           <Input
             id="password"
-            v-model="password"
             type="password"
             label="Password"
             name="password"
-            data-location="password"
+            :value.sync="user.password"
             @change="handleInputChange"
           />
 
@@ -66,38 +64,25 @@ export default {
   },
   data() {
     return {
-      email: '',
-      password: '',
+      user: {
+        email: 'sandra@iotek.no',
+        password: 'password',
+      },
     }
   },
   methods: {
-    ...mapActions(['login']),
+    ...mapActions('auth', ['login']),
     async submit() {
-      try {
-        const response = await this.$axios.$post('auth/login', {
-          email: 'sandra@iotek.no',
-          password: 'password',
-        })
+      console.log(this.user)
+      this.loading = true
+      const response = await this.login(this.user)
+      this.loading = false
 
-        console.log(response)
-      } catch (error) {
-        console.log(error)
-      }
+      console.log(response)
     },
-
-    // try {
-    //   await this.login({
-    //     username: this.email,
-    //     password: this.password,
-    //   })
-    // } catch (e) {
-    //   this.errorMessage = e.response.data.error
-    //   this.error = true
-    //   console.log(e.response.data)
-    // }
-  },
-  handleInputChange({ value, dataLocation }) {
-    this[dataLocation] = value
+    handleInputChange({ value, dataLocation }) {
+      this[dataLocation] = value
+    },
   },
 }
 </script>
