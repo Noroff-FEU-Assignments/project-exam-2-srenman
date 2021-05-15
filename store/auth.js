@@ -34,7 +34,7 @@ export const actions = {
       commit('setToken', authRes.access_token)
       this.$router.push('/admin')
       dispatch('getCompany')
-      dispatch('getPersons')
+      dispatch('obituaries/getPersons', null, { root: true })
       return { auth: true }
     } catch (error) {
       console.log(error)
@@ -62,25 +62,11 @@ export const actions = {
       console.log('get profile error -> ', error)
     }
   },
-  async getPersons({ commit }) {
-    try {
-      const persons = await this.$axios.$get('/person', {
-        header:
-          'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvc3RhZ2luZy5taW5uZWFwaS5ub1wvYXBpXC92MVwvYXV0aFwvbG9naW4iLCJpYXQiOjE2MjEwMzIxODMsImV4cCI6MTYyMTAzNTc4MywibmJmIjoxNjIxMDMyMTgzLCJqdGkiOiJDY0hCMVFZRG9xVktZN001Iiwic3ViIjoiNDFmYzE1ZGYtNTgxYi00Yzg0LWI1YjEtN2Q5ZDE0ZmMzMjc4IiwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyJ9.q2GEtCaqVAaWGP0QUtdGalB4XMLYI-0r6NkFnui3JpE',
-      })
-      commit('setPersons', persons.data)
-    } catch (error) {
-      console.log('get persons error ->', error)
-    }
-  },
 }
 
 export const mutations = {
   setCompany(state, company) {
     Vue.set(state, 'company', company)
-  },
-  setPersons(state, persons) {
-    Vue.set(state, 'persons', persons)
   },
   setToken(state, token) {
     state.token = token

@@ -98,6 +98,10 @@ export default {
       type: String,
       default: '',
     },
+    id: {
+      type: String,
+      default: '',
+    },
   },
   data() {
     return {

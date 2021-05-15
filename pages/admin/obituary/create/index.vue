@@ -5,8 +5,8 @@
         class="h-44 w-44 bg-black rounded-full absolute -bottom-16 right-2/4 translate-x-2/4 object-cover"
         src="https://images.unsplash.com/photo-1544819576-82e8d26e7d22?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=934&q=80"
       />
-      <h1 class="pt-8 font-semibold text-xl">Karl Olav Anker Johansen</h1>
-      <p>1.4.1928 - 23.12.2020</p>
+      <h1 class="pt-8 font-semibold text-xl">{{ name }}</h1>
+      <p>{{ personalNumber }} - {{ deceasedDate }}</p>
     </div>
     <div class="flex justify-between px-20">
       <div class="w-1/3">
@@ -15,27 +15,91 @@
             Kontaktperson
           </h3>
 
-          <Input id="contactName" label="Navn" name="contactName" />
-          <Input id="contactEmail" label="Epost" name="contactEmail" />
-          <Input id="contactTel" label="Telefonnummer" name="contactTel" />
+          <Input
+            id="contactName"
+            v-model="contactName"
+            data-location="contactName"
+            label="Navn"
+            name="contactName"
+            @change="handleInputChange"
+          />
+          <Input
+            id="contactEmail"
+            v-model="contactEmail"
+            type="email"
+            data-location="contactEmail"
+            label="Epost"
+            name="contactEmail"
+            @change="handleInputChange"
+          />
+          <Input
+            id="contactTel"
+            v-model="contactTel"
+            data-location="contactTel"
+            label="Telefonnummer"
+            name="contactTel"
+            @change="handleInputChange"
+          />
           <select-relation label="Forhold til avdøde" />
         </form>
         <form class="bg-white shadow sm:rounded-lg px-6 pb-10 pt-6">
-          <text-area label="Notater" />
+          <text-area
+            v-model="notes"
+            data-location="notes"
+            label="Notater"
+            name="notes"
+            @change="handleInputChange"
+          />
         </form>
       </div>
 
       <form class="bg-white shadow sm:rounded-lg w-3/5 px-6 pb-10">
         <h3 class="py-8 text-lg leading-6 font-medium text-gray-900">Avdøde</h3>
-        <Input id="name" label="Fullt navn" name="name" />
+        <Input
+          id="name"
+          v-model="name"
+          label="Fullt navn"
+          name="name"
+          data-location="name"
+          @change="handleInputChange"
+        />
         <Label class="text-sm font-medium text-gray-700 pb-2">Kjønn</Label>
         <div class="flex ml-2 mb-4">
           <radio-button label="Mann" class="mr-4" />
           <radio-button label="Kvinne" />
         </div>
-        <Input id="commune" label="Bostedskommune" name="commune" />
-        <Input id="personalNumber" label="Personnummer" name="personalNumber" />
-        <Input id="placeOfDeath" label="Dødssted" name="placeOfDeath" />
+        <Input
+          id="commune"
+          v-model="commune"
+          data-location="commune"
+          label="Bostedskommune"
+          name="commune"
+          @change="handleInputChange"
+        />
+        <Input
+          id="personalNumber"
+          v-model="personalNumber"
+          data-location="personalNumber"
+          label="Personnummer"
+          name="personalNumber"
+          @change="handleInputChange"
+        />
+        <Input
+          id="deceasedDate"
+          v-model="deceasedDate"
+          data-location="deceasedDate"
+          label="Dødsdato"
+          name="deceasedDate"
+          @change="handleInputChange"
+        />
+        <Input
+          id="placeOfDeath"
+          v-model="placeOfDeath"
+          data-location="placeOfDeath"
+          label="Dødssted"
+          name="placeOfDeath"
+          @change="handleInputChange"
+        />
         <div
           class="w-full flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md"
         >
@@ -254,6 +318,7 @@
   </div>
 </template>
 <script>
+import { mapActions } from 'vuex'
 import Input from '@/components/ui/form/Input'
 import SelectRelation from '@/components/ui/dropdowns/SelectRelation'
 import TextArea from '@/components/ui/form/TextArea'
@@ -276,8 +341,29 @@ export default {
     EyeIcon,
     ChevronRight,
   },
-
   layout: 'admin',
   middleware: ['auth'],
+  data() {
+    return {
+      contactName: null,
+      contactEmail: null,
+      contactTel: null,
+      notes: null,
+      name: null,
+      commune: null,
+      personalNumber: null,
+      deceasedDate: null,
+      placeOfDeath: null,
+    }
+  },
+  methods: {
+    ...mapActions('obituaries', ['updateField']),
+
+    handleInputChange({ value, dataLocation }) {
+      this[dataLocation] = value
+      this.isDirty = true
+      this.updateField(value)
+    },
+  },
 }
 </script>
