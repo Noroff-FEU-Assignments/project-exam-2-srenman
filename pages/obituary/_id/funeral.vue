@@ -13,15 +13,15 @@
               <LocationIcon class="text-gray-500" />
             </div>
             <div>
-              <p>Fra Borge Kirke</p>
-              <p>til Vik Kirkegård</p>
+              <p>Fra {{ person.funeral_information.church }}</p>
+              <p>til {{ person.funeral_information.cementary }}</p>
             </div>
           </div>
           <div class="flex">
             <div class="mr-2">
               <CalendarIcon class="text-gray-500" />
             </div>
-            <div>8. januar 2021 kl 10.30</div>
+            <div>{{ person.funeral_information.date }}</div>
           </div>
         </div>
         <div class="flex-1">
@@ -90,6 +90,25 @@ export default {
   data() {
     return {
       RegisterAttendance: false,
+
+      person: {
+        id: '123',
+        name: 'Ola Nordmann',
+        status: 'Aktiv',
+        person_information: {
+          birthday: '1934.04.23',
+          deceased: '2021.04.26',
+        },
+        funeral_information: {
+          church: 'Borge Kirke',
+          cementary: 'Vik kirkegård',
+          date: '8. Januar 2021 kl. 10.30',
+        },
+        bg_image_id:
+          'https://images.unsplash.com/photo-1474533883693-59a44dbb964e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2250&q=80',
+        person_image_id:
+          'https://images.unsplash.com/photo-1544819576-82e8d26e7d22?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=934&q=80',
+      },
     }
   },
 }
