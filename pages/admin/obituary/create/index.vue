@@ -21,7 +21,7 @@
             data-location="contactName"
             label="Navn"
             name="contactName"
-            @change="handleInputChange"
+            @change="handleInputChange, addToState"
           />
           <Input
             id="contactEmail"
@@ -39,6 +39,7 @@
             label="Telefonnummer"
             name="contactTel"
             @change="handleInputChange"
+            @keyup="addToState"
           />
           <select-relation label="Forhold til avdøde" />
         </form>
@@ -49,6 +50,7 @@
             label="Notater"
             name="notes"
             @change="handleInputChange"
+            @keyup="addToState"
           />
         </form>
       </div>
@@ -75,6 +77,7 @@
           label="Bostedskommune"
           name="commune"
           @change="handleInputChange"
+          @keyup="addToState"
         />
         <Input
           id="personalNumber"
@@ -83,6 +86,7 @@
           label="Personnummer"
           name="personalNumber"
           @change="handleInputChange"
+          @keyup="addToState"
         />
         <Input
           id="deceasedDate"
@@ -91,6 +95,7 @@
           label="Dødsdato"
           name="deceasedDate"
           @change="handleInputChange"
+          @keyup="addToState"
         />
         <Input
           id="placeOfDeath"
@@ -99,6 +104,7 @@
           label="Dødssted"
           name="placeOfDeath"
           @change="handleInputChange"
+          @keyup="addToState"
         />
         <div
           class="w-full flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md"
@@ -357,12 +363,15 @@ export default {
     }
   },
   methods: {
-    ...mapActions('obituaries', ['updateField']),
+    ...mapActions('test', ['changeField']),
 
     handleInputChange({ value, dataLocation }) {
       this[dataLocation] = value
+    },
+    addToState(e) {
+      console.log('hej')
       this.isDirty = true
-      this.updateField(value)
+      this.changeField(e)
     },
   },
 }

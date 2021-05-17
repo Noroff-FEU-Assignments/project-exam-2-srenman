@@ -1,6 +1,5 @@
 import Vue from 'vue'
-
-const state = {
+const getDefaultObituary = () => ({
   createObituary: {
     person_information: {
       name: null,
@@ -23,9 +22,14 @@ const state = {
     bg_image_id: null,
     person_image_id: null,
   },
-}
+})
+
+export const state = getDefaultObituary
 
 export const actions = {
+  changeField({ commit }, text) {
+    commit('changeField', text)
+  },
   async getPersons({ commit }) {
     try {
       const persons = await this.$axios.$get('/person', {
@@ -37,17 +41,13 @@ export const actions = {
       console.log('get persons error ->', error)
     }
   },
-  updateField({ commit }, text) {
-    console.log('hej')
-    commit('updateField', text)
-  },
 }
 
 export const mutations = {
   setPersons(state, persons) {
     Vue.set(state, 'persons', persons)
   },
-  updateField: (state, event) => {
+  changeField: (state, event) => {
     state.createObituary[event.dataLocation] = event.value
   },
 }
