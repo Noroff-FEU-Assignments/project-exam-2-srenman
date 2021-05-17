@@ -51,7 +51,7 @@
           <div class="flex-1 px-4 flex justify-between">
             <div class="flex-1 flex">
               <form class="w-full flex md:ml-0" action="#" method="GET">
-                <label for="search_field" class="sr-only">Search</label>
+                <label for="search_field" class="sr-only">Søk</label>
                 <div
                   class="relative w-full text-gray-400 focus-within:text-gray-600"
                 >
@@ -74,10 +74,12 @@
                   </div>
                   <input
                     id="search_field"
+                    v-model="filter"
                     class="block w-full h-full pl-8 pr-3 py-2 border-transparent text-gray-900 placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-0 focus:border-transparent sm:text-sm"
-                    placeholder="Search"
+                    placeholder="Søk et navn"
                     type="search"
                     name="search"
+                    @keyup="updateSearch"
                   />
                 </div>
               </form>
@@ -91,7 +93,7 @@
           <div class="py-6">
             <div class="max-w-7xl mx-auto px-6 flex flex-wrap">
               <Card
-                v-for="obituary in obituaries"
+                v-for="obituary in filterResult"
                 :key="obituary.id"
                 :data="obituary"
               />
@@ -119,6 +121,7 @@ export default {
   },
   data() {
     return {
+      filter: null,
       obituaries: [
         {
           id: '123',
@@ -174,9 +177,27 @@ export default {
       ],
     }
   },
+  computed: {
+    filterResult() {
+      if (this.filter) {
+        return this.obituaries.filter((obituary) => {
+          return this.filter
+            .toLowerCase()
+            .split(' ')
+            .every((v) => obituary.name.toLowerCase().includes(v))
+        })
+      } else {
+        return this.obituaries
+      }
+    },
+  },
 
   methods: {
     ...mapMutations(['increment']),
+
+    updateSearch(e) {
+      this.filter = e.target.value
+    },
   },
 }
 </script>

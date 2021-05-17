@@ -51,6 +51,7 @@
               placeholder="Search"
               type="search"
               name="search"
+              @change="updateSearch"
             />
           </div>
         </form>
@@ -90,6 +91,12 @@ export default {
   name: 'Topbar',
   components: {
     ProfileDropdown,
+  },
+  methods: {
+    updateSearch(e) {
+      console.log('hej', e)
+      // this.filter = e.value
+    },
   },
 }
 </script>
