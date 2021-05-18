@@ -1,8 +1,6 @@
 <template>
   <div class="h-screen flex overflow-hidden bg-secondary-100">
-    <div
-      class="bg-primary-200 w-1/3 p-4 flex flex-col items-center justify-center"
-    >
+    <div class="w-1/3 p-4 flex flex-col items-center justify-center bg-img">
       <div class="flex items-center my-10">
         <div class="h-40 w-44">
           <img
@@ -77,3 +75,8 @@ export default {
   },
 }
 </script>
+<style>
+.bg-img {
+  background-color: blue !important;
+}
+</style>
