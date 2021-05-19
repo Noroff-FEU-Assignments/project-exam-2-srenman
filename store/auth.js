@@ -48,15 +48,12 @@ export const actions = {
   logout({ commit, dispatch }) {
     this.$axios.$post('/auth/logout').catch(() => {})
     this.$axios.setToken(null)
-    dispatch('clearState', null, { root: true })
+    dispatch('obituaries/clearState', null, { root: true })
     commit('clearState')
   },
   async getCompany({ commit }) {
     try {
-      const companyRes = await this.$axios.$get('/company', {
-        header:
-          'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvc3RhZ2luZy5taW5uZWFwaS5ub1wvYXBpXC92MVwvYXV0aFwvbG9naW4iLCJpYXQiOjE2MjEwMzIxODMsImV4cCI6MTYyMTAzNTc4MywibmJmIjoxNjIxMDMyMTgzLCJqdGkiOiJDY0hCMVFZRG9xVktZN001Iiwic3ViIjoiNDFmYzE1ZGYtNTgxYi00Yzg0LWI1YjEtN2Q5ZDE0ZmMzMjc4IiwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyJ9.q2GEtCaqVAaWGP0QUtdGalB4XMLYI-0r6NkFnui3JpE',
-      })
+      const companyRes = await this.$axios.$get('/company')
       commit('setCompany', companyRes.data)
     } catch (error) {
       console.log('get profile error -> ', error)

@@ -31,7 +31,6 @@
   </div>
 </template>
 <script>
-import { mapGetters } from 'vuex'
 import Topbar from '@/components/layout/Topbar'
 import SidebarDesktop from '@/components/sidebar/Desktop'
 import SidebarMobile from '@/components/sidebar/Mobile'
@@ -45,8 +44,6 @@ export default {
   data() {
     return {}
   },
-  computed: {
-    ...mapGetters({}),
-  },
+  computed: {},
 }
 </script>

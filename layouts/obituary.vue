@@ -1,11 +1,16 @@
 <template>
   <div class="h-screen flex overflow-hidden bg-secondary-100">
-    <div class="w-1/3 p-4 flex flex-col items-center justify-center bg-img">
-      <div class="flex items-center my-10">
+    <div class="w-1/3 p-4 flex flex-col items-center justify-center relative">
+      <img
+        class="h-screen absolute z-0"
+        :src="person.bg_image_id"
+        alt="background image"
+      />
+      <div class="flex items-center my-10 z-10">
         <div class="h-40 w-44">
           <img
             class="h-36 w-36 rounded-full object-cover"
-            src="https://images.unsplash.com/photo-1544819576-82e8d26e7d22?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=934&q=80"
+            :src="person.person_image_id"
             alt="Portrait"
           />
         </div>
@@ -24,7 +29,7 @@
           <p class="font-semibold">{{ person.funeral_information.date }}</p>
         </div>
       </div>
-      <div class="my-10">
+      <div class="my-10 z-10">
         <nuxt-link
           :to="`/obituary/${person.id}`"
           class="bg-primary-500 px-6 py-2 rounded-md hover:bg-primary-700 text-white mx-2"
@@ -36,7 +41,9 @@
           >Begravelse</nuxt-link
         >
       </div>
-      <div><img src="../assets/img/obituary-1.png" alt="Dødsannonse" /></div>
+      <div class="z-10">
+        <img src="@/assets/img/obituary-1.png" alt="Dødsannonse" />
+      </div>
     </div>
 
     <main class="flex-1 relative overflow-y-auto focus:outline-none">
@@ -77,6 +84,10 @@ export default {
 </script>
 <style>
 .bg-img {
-  background-color: blue !important;
+  background-image: url('https://images.unsplash.com/photo-1474533883693-59a44dbb964e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2250&q=80');
+  background-repeat: no-repeat, repeat;
+  background-color: #ced3d2;
+  background-position: center;
+  background-size: cover;
 }
 </style>
