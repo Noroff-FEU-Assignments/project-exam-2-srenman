@@ -99,6 +99,12 @@
               />
             </div>
           </div>
+          <div
+            v-if="loading"
+            class="absolute inset-0 bg-gray-200 bg-opacity-75 z-50 sm:rounded-lg flex items-center justify-center"
+          >
+            <Loader class="w-16 mx-auto animate-spin text-gray-500" />
+          </div>
         </main>
       </div>
     </div>
@@ -106,11 +112,12 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import Logo from '../assets/Logo'
-import Card from '../components/ui/Card'
-import Heading from '../components/ui/typography/Heading'
-import Paragraph from '../components/ui/typography/Paragraph'
+import { mapActions } from 'vuex'
+import Logo from '@/assets/Logo'
+import Card from '@/components/ui/Card'
+import Heading from '@/components/ui/typography/Heading'
+import Paragraph from '@/components/ui/typography/Paragraph'
+import Loader from '@/assets/svg/loader.svg?inline'
 
 export default {
   components: {
@@ -118,64 +125,14 @@ export default {
     Card,
     Heading,
     Paragraph,
+    Loader,
   },
 
   data() {
     return {
       filter: null,
-      obituaries: [
-        {
-          id: '123',
-          name: 'Ola Nordmann',
-          status: 'Aktiv',
-          person_information: {
-            birthday: '1934.04.23',
-            deceased: '2021.04.26',
-          },
-          funeral_information: {
-            church: 'Borge Kirke',
-            date: '8. Januar 2021 kl. 10.30',
-          },
-          bg_image_id:
-            'https://images.unsplash.com/photo-1474533883693-59a44dbb964e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2250&q=80',
-          person_image_id:
-            'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixqx=jiU6DFBkaq&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60',
-        },
-        {
-          id: '124',
-          name: 'Anker Olav Jenssen',
-          status: 'Arkivert',
-          person_information: {
-            birthday: '1934-04-23',
-            deceased: '2021-04-26',
-          },
-          funeral_information: {
-            church: 'badb',
-            date: 'vsfd',
-          },
-          bg_image_id:
-            'https://images.unsplash.com/photo-1474533883693-59a44dbb964e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2250&q=80',
-          person_image_id:
-            'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixqx=jiU6DFBkaq&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60',
-        },
-        {
-          id: '125',
-          name: 'bal',
-          status: 'Aktiv',
-          person_information: {
-            birthday: '1934-04-23',
-            deceased: '2021-04-26',
-          },
-          funeral_information: {
-            church: 'badb',
-            date: 'vsfd',
-          },
-          bg_image_id:
-            'https://images.unsplash.com/photo-1474533883693-59a44dbb964e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2250&q=80',
-          person_image_id:
-            'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixqx=jiU6DFBkaq&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60',
-        },
-      ],
+      loading: false,
+      obituaries: [],
     }
   },
   computed: {
@@ -191,11 +148,21 @@ export default {
         return this.obituaries
       }
     },
-    ...mapGetters('obituaries', ['getPersons']),
   },
-  mounted() {},
+  beforeMount() {
+    this.displayObituaries()
+  },
 
   methods: {
+    ...mapActions('obituaries', ['getPublicPersons']),
+    async displayObituaries() {
+      this.loading = true
+      const response = await this.getPublicPersons()
+      console.log('førsta->', response)
+      this.obituaries = response.data
+      console.log('andra ->', this.obituaries)
+      this.loading = false
+    },
     updateSearch(e) {
       this.filter = e.target.value
     },

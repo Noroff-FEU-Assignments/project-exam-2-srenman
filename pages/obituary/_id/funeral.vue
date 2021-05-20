@@ -72,6 +72,7 @@ import WriteIcon from '@/assets/svg/write.svg?inline'
 import ExitIcon from '@/assets/svg/exitPage.svg?inline'
 import RegisterAttendance from '@/components/funeral/RegisterAttendance'
 import PrimaryLink from '@/components/ui/buttons/PrimaryLink'
+import { mapGetters } from 'vuex'
 
 export default {
   components: {
@@ -87,29 +88,18 @@ export default {
     PrimaryLink,
   },
   layout: 'obituary',
+
   data() {
     return {
       RegisterAttendance: false,
 
-      person: {
-        id: '123',
-        name: 'Ola Nordmann',
-        status: 'Aktiv',
-        person_information: {
-          birthday: '1934.04.23',
-          deceased: '2021.04.26',
-        },
-        funeral_information: {
-          church: 'Borge Kirke',
-          cementary: 'Vik kirkegård',
-          date: '8. Januar 2021 kl. 10.30',
-        },
-        bg_image_id:
-          'https://images.unsplash.com/photo-1474533883693-59a44dbb964e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2250&q=80',
-        person_image_id:
-          'https://images.unsplash.com/photo-1544819576-82e8d26e7d22?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=934&q=80',
-      },
+      person: {},
     }
+  },
+  computed: {
+    ...mapGetters({
+      getCurrentPerson: 'obituaries/getCurrentPerson',
+    }),
   },
 }
 </script>

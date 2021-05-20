@@ -3,6 +3,6 @@ import createPersistedState from 'vuex-persistedstate'
 export default ({ store }) => {
   createPersistedState({
     key: 'gravferdshjelpen-state',
-    paths: ['auth.token', 'lang'],
+    paths: ['auth.token'],
   })(store)
 }

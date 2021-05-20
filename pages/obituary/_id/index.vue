@@ -7,8 +7,8 @@
         <span slot="text" class="ml-2">Legg til hilsen</span></PrimaryButton
       >
     </div>
-    <Poem :author="data.funeral_information.poem.author">
-      {{ data.funeral_information.poem.text }}
+    <Poem v-if="poem" :author="person.funeral_information.poemAuthor">
+      {{ person.funeral_information.poemText }}
     </Poem>
     <div class="bg-white w-10/12 mx-auto mb-20 rounded-lg border">
       <!-- Condolances Here -->
@@ -50,16 +50,17 @@
 <script>
 import Heading from '@/components/ui/typography/Heading'
 import PrimaryButton from '@/components/ui/buttons/PrimaryButton'
-import Poem from '@/components/ui/typography/Poem'
+// import Poem from '@/components/ui/typography/Poem'
 import CondolanceLine from '@/components/condolences/CondolanceLine'
 import MailIcon from '@/assets/svg/mail.svg?inline'
 import AddMessage from '@/components/condolences/AddMessage'
+import { mapActions } from 'vuex'
 
 export default {
   components: {
     Heading,
     PrimaryButton,
-    Poem,
+    // Poem,
     CondolanceLine,
     MailIcon,
     AddMessage,
@@ -69,33 +70,22 @@ export default {
     return {
       AddMessage: false,
 
-      data: {
-        id: '123',
-        name: 'Ola Nordmann',
-        status: 'Aktiv',
-        person_information: {
-          birthday: '1934.04.23',
-          deceased: '2021.04.26',
-        },
-        funeral_information: {
-          church: 'Borge Kirke',
-          cementary: 'Vik kirkegård',
-          date: '8. Januar 2021 kl. 10.30',
-          poem: {
-            author: 'Kolbein Falkeid',
-            text: `I livet mitt kom og gikk du som en komet. Ikke at jeg var sola,
-      gravitasjonskjempen som holdt deg i stramme og slakke tøyler. Men en slags
-      øy I verdenshavet var jeg vel? Du dro forbi med håret for fulle seil, et
-      myrullslep av lys på den endeløse blåmyra. Av og til gjorde du strandhogg.
-      Det var fint, fint. Men hver gang jeg snudde meg mot deg var du
-      borte`,
-          },
-        },
-        person_image_id:
-          'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixqx=jiU6DFBkaq&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60',
-      },
+      person: {},
     }
   },
-  methods: {},
+  beforeMount() {
+    this.displayPerson()
+  },
+
+  methods: {
+    ...mapActions('obituaries', ['getPersonById']),
+    async displayPerson() {
+      this.loading = true
+      const response = await this.getPersonById(this.$route.params.id)
+      this.person = response.data
+      console.log('person ->', this.person)
+      this.loading = false
+    },
+  },
 }
 </script>

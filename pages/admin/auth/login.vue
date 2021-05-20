@@ -102,8 +102,7 @@ export default {
       this.errors = response.errors
       if (response.error === 'Unauthorized') {
         this.errors = {
-          password: 'aefr',
-          email: 'asdfsdf',
+          password: 'Wrong email or password',
         }
       }
     },

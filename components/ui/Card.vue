@@ -21,8 +21,8 @@
             {{ data.name }}
           </h2>
           <h3 class="text-md text-gray-500">
-            {{ data.person_information.birthday }} -
-            {{ data.person_information.deceased }}
+            {{ data.funeral_information.birthday }} -
+            {{ data.funeral_information.deceasedDate }}
           </h3>
           <p class="my-3 text-base text-gray-500">
             Begravelse fra {{ data.funeral_information.church }}
@@ -64,7 +64,7 @@ export default {
   },
   props: {
     data: {
-      type: [String, Object],
+      type: [String, Object, Array],
       default: '',
     },
   },
