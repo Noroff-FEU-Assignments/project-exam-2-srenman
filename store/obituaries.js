@@ -78,37 +78,7 @@ export const mutations = {
 
 export const getters = {
   getPersons(state) {
+    console.log('returning persons ->', state.persons)
     return state.persons
   },
 }
-
-// name: data.name,
-// person_information: {
-//   sex: data.sex,
-//   commune: data.commune,
-//   personalNumber: data.personalNumber,
-//   deceasedDate: data.deceasedDate,
-//   placeOfDeath: data.placeOfDeath,
-// },
-// funeral_information: {
-//   birthday: data.personalNumber,
-//   deceasedDate: data.deceasedDate,
-//   church: data.church,
-//   cementary: data.cementary,
-//   date: data.funeralDate,
-//   memoryPage: data.memoryPage,
-//   livestream: data.livestream,
-//   allowCondolences: data.allowCondolences,
-//   allowFlowerOrder: data.allowFlowerOrder,
-//   allowRegisterAttendace: data.allowRegisterAttendace,
-// },
-// contact: {
-//   contactName: data.contactName,
-//   contactEmail: data.contactEmail,
-//   contactTel: data.contactTel,
-//   contactRelation: data.contactRelation,
-// },
-// comment: data.comment,
-// bg_image_id: data.bg_image_id,
-// person_image_id: data.person_image_id,
-// completed_at: data.completeDate,

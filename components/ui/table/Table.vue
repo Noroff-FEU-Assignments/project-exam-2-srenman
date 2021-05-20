@@ -37,9 +37,9 @@
               <tbody class="bg-white divide-y divide-gray-200">
                 <!-- Obituaries-->
                 <table-line
-                  v-for="obituary in obituaries"
-                  :key="obituary.id"
-                  :data="obituary"
+                  v-for="person in persons"
+                  :key="person.id"
+                  :data="person"
                 />
               </tbody>
             </table>
@@ -50,9 +50,9 @@
     <!-- Phone and tablet -->
     <div class="lg:hidden">
       <horizontal-line
-        v-for="obituary in obituaries"
-        :key="obituary.id"
-        :data="obituary"
+        v-for="person in persons"
+        :key="person.id"
+        :data="person"
       />
     </div>
   </div>
@@ -66,57 +66,19 @@ export default {
     TableLine,
     HorizontalLine,
   },
+  props: {
+    persons: {
+      type: Array,
+      default: null,
+    },
+  },
   data() {
     return {
-      obituaries: [
-        {
-          id: '123',
-          name: 'Ola Nordmann',
-          status: 'Aktiv',
-          person_information: {
-            birthday: '1934.04.23',
-            deceased: '2021.04.26',
-          },
-          funeral_information: {
-            church: 'Borge Kirke',
-            date: '8. Januar 2021 kl. 10.30',
-          },
-          person_image_id:
-            'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixqx=jiU6DFBkaq&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60',
-        },
-        {
-          id: '124',
-          name: 'Anker Olav Jenssen',
-          status: 'Arkivert',
-          person_information: {
-            birthday: '1934-04-23',
-            deceased: '2021-04-26',
-          },
-          funeral_information: {
-            church: 'badb',
-            date: 'vsfd',
-          },
-          person_image_id:
-            'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixqx=jiU6DFBkaq&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60',
-        },
-        {
-          id: '125',
-          name: 'bal',
-          status: 'Aktiv',
-          person_information: {
-            birthday: '1934-04-23',
-            deceased: '2021-04-26',
-          },
-          funeral_information: {
-            church: 'badb',
-            date: 'vsfd',
-          },
-          person_image_id:
-            'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixqx=jiU6DFBkaq&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60',
-        },
-      ],
+      obituaries: null,
     }
   },
+
   mounted() {},
+  methods: {},
 }
 </script>

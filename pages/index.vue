@@ -106,7 +106,7 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
+import { mapGetters } from 'vuex'
 import Logo from '../assets/Logo'
 import Card from '../components/ui/Card'
 import Heading from '../components/ui/typography/Heading'
@@ -119,6 +119,7 @@ export default {
     Heading,
     Paragraph,
   },
+
   data() {
     return {
       filter: null,
@@ -190,11 +191,11 @@ export default {
         return this.obituaries
       }
     },
+    ...mapGetters('obituaries', ['getPersons']),
   },
+  mounted() {},
 
   methods: {
-    ...mapMutations(['increment']),
-
     updateSearch(e) {
       this.filter = e.target.value
     },
