@@ -46,7 +46,7 @@
           <fieldset class="bg-white shadow sm:rounded-lg px-6 pb-10 pt-6">
             <text-area
               v-model="notes"
-              data-location="notes"
+              data-location="comment"
               label="Notater"
               name="notes"
               @change="handleInputChange"
@@ -82,7 +82,7 @@
           <Input
             id="personalNumber"
             v-model="personalNumber"
-            data-location="person_information.personalNumber"
+            data-location="personalNumber"
             label="Personnummer"
             name="personalNumber"
             @change="handleInputChange"
@@ -410,6 +410,7 @@ export default {
       church: null,
       cementary: null,
       funeralDate: null,
+      person_information: 'person_information',
     }
   },
   computed: {},
@@ -425,10 +426,17 @@ export default {
         dataLocation,
       })
     },
+    // handlePersonInformationChange({ value, dataLocation }) {
+    //   this.person_information[dataLocation] = value
+    //   this.isDirty = true
+    //   this.changeField({
+    //     value,
+    //     dataLocation,
+    //   })
+    // },
     async submit({ state }) {
       this.loading = true
-      console.log('Obituary i index ->', this.obituary)
-      const response = await this.addObituary(this.obituary)
+      const response = await this.addObituary()
       this.loading = false
 
       console.log(response)

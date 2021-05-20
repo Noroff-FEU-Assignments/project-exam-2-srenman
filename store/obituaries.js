@@ -20,8 +20,41 @@ export const actions = {
   },
   async addObituary({ state }, data) {
     try {
-      const obituary = await this.$axios.$post('/person', state.createObituary)
-      console.log('obituary i store ->', obituary)
+      const info = state.createObituary
+      const obituary = await this.$axios.$post('/person', {
+        name: info.name,
+        person_information: {
+          sex: info.sex,
+          commune: info.commune,
+          personalNumber: info.personalNumber,
+          deceasedDate: info.deceasedDate,
+          placeOfDeath: info.placeOfDeath,
+        },
+        funeral_information: {
+          birthday: info.personalNumber,
+          deceasedDate: info.deceasedDate,
+          church: info.church,
+          cementary: info.cementary,
+          date: info.funeralDate,
+          memoryPage: info.memoryPage,
+          livestream: info.livestream,
+          allowCondolences: info.allowCondolences,
+          allowFlowerOrder: info.allowFlowerOrder,
+          allowRegisterAttendace: info.allowRegisterAttendace,
+        },
+        contact: {
+          contactName: info.contactName,
+          contactEmail: info.contactEmail,
+          contactTel: info.contactTel,
+          contactRelation: info.contactRelation,
+        },
+        comment: info.comment,
+        bg_image_id: info.bg_image_id,
+        person_image_id: info.person_image_id,
+        completed_at: info.completeDate,
+      })
+      console.log('response ->', obituary)
+      this.$router.push('/admin/obituary/create/step-2')
     } catch (error) {
       console.log('error ->', error)
     }
