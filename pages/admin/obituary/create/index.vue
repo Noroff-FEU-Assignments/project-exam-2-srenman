@@ -124,7 +124,7 @@
               <div class="flex text-sm text-gray-600">
                 <label
                   for="file-upload"
-                  class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
+                  class="relative cursor-pointer mx-auto bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
                 >
                   <span>Upload a file</span>
                   <input
@@ -132,9 +132,9 @@
                     name="file-upload"
                     type="file"
                     class="sr-only"
+                    @change="onFileSelected"
                   />
                 </label>
-                <p class="pl-1">or drag and drop</p>
               </div>
               <p class="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
             </div>
@@ -227,48 +227,6 @@
           <text-area label="Embed kode" />
         </fieldset>
       </div>
-      <h2 class="px-20 mt-8 py-8 text-2xl leading-7 font-bold text-gray-700">
-        Dødsannonse
-      </h2>
-      <div class="bg-white shadow sm:rounded-lg px-6 py-10 mb-10 w-1/3 ml-20">
-        <Label>Last opp bilde av dødsannonse her</Label>
-        <div
-          class="w-full flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md"
-        >
-          <div class="space-y-1 text-center">
-            <svg
-              class="mx-auto h-12 w-12 text-gray-400"
-              stroke="currentColor"
-              fill="none"
-              viewBox="0 0 48 48"
-              aria-hidden="true"
-            >
-              <path
-                d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
-            <div class="flex text-sm text-gray-600">
-              <label
-                for="file-upload"
-                class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
-              >
-                <span>Upload a file</span>
-                <input
-                  id="file-upload"
-                  name="file-upload"
-                  type="file"
-                  class="sr-only"
-                />
-              </label>
-              <p class="pl-1">or drag and drop</p>
-            </div>
-            <p class="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
-          </div>
-        </div>
-      </div>
     </form>
     <div
       v-if="loading"
@@ -296,7 +254,7 @@
         <li class="md:flex-1">
           <!-- Upcoming Step -->
           <nuxt-link
-            to="/admin/create/step-2"
+            to="/admin/obituary/create/step-2"
             class="group pl-4 py-2 flex flex-col border-l-4 border-gray-200 hover:border-gray-300 md:pl-0 md:pt-4 md:pb-0 md:border-l-0 md:border-t-4"
           >
             <span
@@ -309,7 +267,7 @@
         <li class="md:flex-1">
           <!-- Upcoming Step -->
           <nuxt-link
-            to="/admin/create/step-3"
+            to="/admin/obituary/create/step-3"
             class="group pl-4 py-2 flex flex-col border-l-4 border-gray-200 hover:border-gray-300 md:pl-0 md:pt-4 md:pb-0 md:border-l-0 md:border-t-4"
           >
             <span
@@ -319,6 +277,13 @@
             <span class="text-sm font-medium">Minnesside</span>
           </nuxt-link>
         </li>
+        <!-- <nuxt-link
+          to="/admin/obituary/create/step-2"
+          class="bg-indigo-500 py-2 px-4 text-white rounded-md hover:bg-indigo-700 flex items-center"
+        >
+          <span>Gå videre</span>
+          <span><chevron-right /> </span>
+        </nuxt-link> -->
         <button
           type="submit"
           form="obituaryForm"
@@ -362,40 +327,7 @@ export default {
   data() {
     return {
       loading: false,
-      obituary: {
-        name: 'Anker Olav Johanssen',
-        person_information: {
-          sex: 'Male',
-          commune: 'Vågan',
-          personalNumber: '1923.04.15',
-          deceasedDate: '2021.05.03',
-          placeOfDeath: 'Nordlands Sykehus',
-        },
-        funeral_information: {
-          birthday: '1923.04.15',
-          deceasedDate: '2021.05.03',
-          church: 'Borge Kirke',
-          cementary: 'Vik kirkegård',
-          date: '2021.05.23',
-          memoryPage: true,
-          livestream: true,
-          allowCondolences: true,
-          allowFlowerOrder: true,
-          allowRegisterAttendace: true,
-        },
-        contact: {
-          contactName: 'Jonas Johanssen',
-          contactEmail: 'johansen@mail.no',
-          contactTel: '95677849',
-          contactRelation: 'Child',
-        },
-        comment: 'Dette er en testkommentar',
-        bg_image_id:
-          'https://images.unsplash.com/photo-1474533883693-59a44dbb964e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2250&q=80',
-        person_image_id:
-          'https://images.unsplash.com/photo-1544819576-82e8d26e7d22?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=934&q=80',
-      },
-
+      obituary: {},
       contactName: null,
       contactEmail: null,
       contactTel: null,
@@ -411,11 +343,12 @@ export default {
       cementary: null,
       funeralDate: null,
       person_information: 'person_information',
+      avatarImage: null,
     }
   },
   computed: {},
   methods: {
-    ...mapActions('obituaries', ['addObituary']),
+    ...mapActions('obituaries', ['addObituary', 'uploadImage']),
     ...mapMutations('obituaries', ['changeField']),
 
     handleInputChange({ value, dataLocation }) {
@@ -426,6 +359,11 @@ export default {
         dataLocation,
       })
     },
+    onFileSelected(e) {
+      this.avatarImage = e.target.files[0]
+      console.log('const value ->', this.avatarImage)
+    },
+
     // handlePersonInformationChange({ value, dataLocation }) {
     //   this.person_information[dataLocation] = value
     //   this.isDirty = true
@@ -434,12 +372,12 @@ export default {
     //     dataLocation,
     //   })
     // },
-    async submit({ state }) {
+    async submit() {
       this.loading = true
-      const response = await this.addObituary()
+      const response = await this.addObituary({ avatarImage: this.avatarImage })
+      console.log('Info ->', response)
       this.loading = false
-
-      console.log(response)
+      this.$router.push('/admin/obituary/create/step-2')
     },
   },
 }

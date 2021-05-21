@@ -36,9 +36,16 @@
 
     <nav aria-label="Progress" class="mt-12 bg-white">
       <ol class="space-y-4 md:flex md:space-y-0 md:space-x-8">
+        <nuxt-link
+          to="/admin/obituary/create/step-2"
+          class="bg-indigo-500 py-2 px-4 text-white rounded-md hover:bg-indigo-700 flex items-center"
+        >
+          <span><chevron-left /> </span>
+          <span>Gå tilbake</span>
+        </nuxt-link>
         <li class="md:flex-1">
           <nuxt-link
-            to="/admin/create"
+            to="/admin/obituary/create"
             class="group pl-4 py-2 flex flex-col border-l-4 border-indigo-600 hover:border-indigo-800 md:pl-0 md:pt-4 md:pb-0 md:border-l-0 md:border-t-4"
           >
             <span
@@ -51,7 +58,7 @@
 
         <li class="md:flex-1">
           <nuxt-link
-            to="/admin/create/step-2"
+            to="/admin/obituary/create/step-2"
             class="group pl-4 py-2 flex flex-col border-l-4 border-indigo-600 hover:border-indigo-800 md:pl-0 md:pt-4 md:pb-0 md:border-l-0 md:border-t-4"
             aria-current="step"
           >
@@ -64,7 +71,7 @@
         </li>
         <li class="md:flex-1">
           <nuxt-link
-            to="/admin/create/step-3"
+            to="/admin/obituary/create/step-3"
             class="pl-4 py-2 flex flex-col border-l-4 border-indigo-600 md:pl-0 md:pt-4 md:pb-0 md:border-l-0 md:border-t-4"
             aria-current="step"
           >
@@ -79,7 +86,7 @@
           to="/admin/create/step-3"
           class="bg-indigo-500 py-2 px-4 text-white rounded-md hover:bg-indigo-700 flex items-center"
         >
-          <span>Lagre og gå videre</span>
+          <span>Godkjenn og lagre</span>
           <span><chevron-right /> </span>
         </nuxt-link>
       </ol>
@@ -90,12 +97,14 @@
 import DeceasedProfile from '@/components/ui/DeceasedProfile'
 import TextArea from '@/components/ui/form/TextArea'
 import CondolanceLine from '@/components/condolences/CondolanceLine'
+import ChevronLeft from '@/assets/svg/chevronLeft.svg?inline'
 
 export default {
   components: {
     DeceasedProfile,
     TextArea,
     CondolanceLine,
+    ChevronLeft,
   },
   layout: 'admin',
   middleware: ['auth'],

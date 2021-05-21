@@ -13,6 +13,8 @@ export const actions = {
     try {
       const persons = await this.$axios.$get('/person')
       commit('setPersons', persons.data)
+      console.log('api call persons ->', persons)
+      return persons
     } catch (error) {
       console.log('get persons error ->', error)
     }
@@ -35,7 +37,8 @@ export const actions = {
       console.log('get person error ->', error)
     }
   },
-  async addObituary({ state }) {
+  async addObituary({ state }, data) {
+    const { avatarImage } = data
     try {
       const info = state.createObituary
       const obituary = await this.$axios.$post('/person', {
@@ -59,6 +62,8 @@ export const actions = {
           allowCondolences: info.allowCondolences,
           allowFlowerOrder: info.allowFlowerOrder,
           allowRegisterAttendace: info.allowRegisterAttendace,
+          poemText: info.poemText,
+          poemAuthor: info.poemAuthor,
         },
         contact: {
           contactName: info.contactName,
@@ -72,6 +77,16 @@ export const actions = {
         completed_at: info.completeDate,
       })
       console.log('response ->', obituary)
+      const personId = obituary.data.id
+      const fd = new FormData()
+      fd.append('file', avatarImage)
+      fd.append('collection', 'avatar')
+      const imageResponse = await this.$axios.$post(
+        `/person/${personId}/media`,
+        fd
+      )
+      console.log('Image response in api call ->', imageResponse)
+
       this.$router.push('/admin/obituary/create/step-2')
     } catch (error) {
       console.log('error ->', error)
@@ -98,8 +113,8 @@ export const mutations = {
 }
 
 export const getters = {
-  getPersons(state) {
-    console.log('returning persons ->', state.persons)
+  getAdminPersons(state) {
+    console.log('returning admin persons ->', state.persons)
     return state.persons
   },
   getCurrentPerson(state) {
