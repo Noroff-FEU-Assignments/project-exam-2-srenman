@@ -83,11 +83,17 @@ export const actions = {
       fd.append('collection', 'avatar')
       const imageResponse = await this.$axios.$post(
         `/person/${personId}/media`,
-        fd
+        fd,
+        {
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+        }
       )
       console.log('Image response in api call ->', imageResponse)
-
-      this.$router.push('/admin/obituary/create/step-2')
+      if (imageResponse) {
+        this.$router.push('/admin/obituary/create/step-2')
+      }
     } catch (error) {
       console.log('error ->', error)
     }
@@ -114,11 +120,9 @@ export const mutations = {
 
 export const getters = {
   getAdminPersons(state) {
-    console.log('returning admin persons ->', state.persons)
     return state.persons
   },
   getCurrentPerson(state) {
-    console.log('returning person by id ->', state.currentPerson)
     return state.currentPerson
   },
 }

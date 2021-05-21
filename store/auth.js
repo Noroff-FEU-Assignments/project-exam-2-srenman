@@ -67,7 +67,6 @@ export const mutations = {
   },
   setToken(state, token) {
     state.token = token
-    console.log('set token ->', token)
     this.$axios.setToken(token, 'Bearer')
     localStorage.setItem('authToken', token)
   },

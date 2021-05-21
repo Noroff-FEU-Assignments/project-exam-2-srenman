@@ -68,8 +68,13 @@
           />
           <Label class="text-sm font-medium text-gray-700 pb-2">Kjønn</Label>
           <div class="flex ml-2 mb-4">
-            <radio-button label="Mann" class="mr-4" />
-            <radio-button label="Kvinne" />
+            <radio-button
+              label="Mann"
+              name="gender"
+              value="male"
+              class="mr-4"
+            />
+            <radio-button label="Kvinne" name="gender" value="female" />
           </div>
           <Input
             id="commune"
