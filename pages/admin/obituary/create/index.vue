@@ -3,8 +3,8 @@
     <form id="obituaryForm" @submit.prevent="submit">
       <div class="w-full h-60 bg-gray-200 relative px-10 mb-24">
         <img
-          class="h-44 w-44 bg-black rounded-full absolute -bottom-16 right-2/4 translate-x-2/4 object-cover"
-          src=""
+          class="h-44 w-44 bg-gray-100 rounded-full absolute -bottom-16 right-2/4 translate-x-2/4 object-cover"
+          src="@/assets/img/simple-avatar.png"
         />
         <h1 class="pt-8 font-semibold text-xl">{{ name }}</h1>
         <p>{{ personalNumber }} - {{ deceasedDate }}</p>
@@ -217,9 +217,39 @@
             </div>
 
             <Label>Livestream</Label>
-            <div class="flex">
-              <radio-button label="Ja" class="mr-10" />
-              <radio-button label="Nej" />
+            <div class="flex mb-8">
+              <div class="flex items-center mr-10">
+                <input
+                  id="livestreamTrue"
+                  v-model="liveStream"
+                  type="radio"
+                  value="true"
+                  data-location="liveStream"
+                  class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
+                  @click="handleRadio"
+                />
+                <label
+                  for="LivestreamTrue"
+                  class="ml-3 block text-sm font-medium text-gray-700"
+                  >Ja</label
+                >
+              </div>
+              <div class="flex items-center mr-10">
+                <input
+                  id="livestreamFalse"
+                  v-model="liveStream"
+                  type="radio"
+                  value="false"
+                  data-location="liveStream"
+                  class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
+                  @click="handleRadio"
+                />
+                <label
+                  for="livestreamFalse"
+                  class="ml-3 block text-sm font-medium text-gray-700"
+                  >Nej</label
+                >
+              </div>
             </div>
           </fieldset>
           <fieldset class="bg-white shadow sm:rounded-lg px-6 pb-10">
@@ -232,23 +262,115 @@
             </p>
             <Label>Tillat kondolanser</Label>
             <div class="flex mb-8">
-              <radio-button label="Ja" class="mr-10" />
-              <radio-button label="Nej" />
+              <div class="flex items-center mr-10">
+                <input
+                  id="condolensesTrue"
+                  v-model="allowCondolenses"
+                  type="radio"
+                  value="true"
+                  data-location="allowCondolenses"
+                  class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
+                  @click="handleRadio"
+                />
+                <label
+                  for="condolensesTrue"
+                  class="ml-3 block text-sm font-medium text-gray-700"
+                  >Ja</label
+                >
+              </div>
+              <div class="flex items-center mr-10">
+                <input
+                  id="condolencesFalse"
+                  v-model="allowCondolenses"
+                  type="radio"
+                  value="false"
+                  data-location="allowCondolenses"
+                  class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
+                  @click="handleRadio"
+                />
+                <label
+                  for="condolensesFalse"
+                  class="ml-3 block text-sm font-medium text-gray-700"
+                  >Nej</label
+                >
+              </div>
             </div>
             <Label>Blomsterbestilling</Label>
             <div class="flex mb-8">
-              <radio-button label="Ja" class="mr-10" />
-              <radio-button label="Nej" />
+              <div class="flex items-center mr-10">
+                <input
+                  id="flowerOrdersTrue"
+                  v-model="allowFlowerOrders"
+                  type="radio"
+                  value="true"
+                  data-location="allowFlowerOrders"
+                  class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
+                  @click="handleRadio"
+                />
+                <label
+                  for="flowerOrdersTrue"
+                  class="ml-3 block text-sm font-medium text-gray-700"
+                  >Ja</label
+                >
+              </div>
+              <div class="flex items-center mr-10">
+                <input
+                  id="flowerOrdersFalse"
+                  v-model="allowFlowerOrders"
+                  type="radio"
+                  value="false"
+                  data-location="allowFlowerOrders"
+                  class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
+                  @click="handleRadio"
+                />
+                <label
+                  for="flowerOrdersFalse"
+                  class="ml-3 block text-sm font-medium text-gray-700"
+                  >Nej</label
+                >
+              </div>
             </div>
             <Label>Deltakerregistrering</Label>
             <div class="flex mb-8">
-              <radio-button label="Ja" class="mr-10" />
-              <radio-button label="Nej" />
+              <div class="flex items-center mr-10">
+                <input
+                  id="funeralRegistrationTrue"
+                  v-model="allowFuneralRegistration"
+                  type="radio"
+                  value="true"
+                  data-location="allowFuneralRegistration"
+                  class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
+                  @click="handleRadio"
+                />
+                <label
+                  for="funeralRegistrationTrue"
+                  class="ml-3 block text-sm font-medium text-gray-700"
+                  >Ja</label
+                >
+              </div>
+              <div class="flex items-center mr-10">
+                <input
+                  id="funeralRegistrationFalse"
+                  v-model="allowFuneralRegistration"
+                  type="radio"
+                  value="false"
+                  data-location="allowFuneralRegistration"
+                  class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
+                  @click="handleRadio"
+                />
+                <label
+                  for="funeralRegistrationFalse"
+                  class="ml-3 block text-sm font-medium text-gray-700"
+                  >Nej</label
+                >
+              </div>
             </div>
-            <admin-button
+            <!-- 
+              Going to be implemented in the future
+              <admin-button
               ><span slot="text">Moderer inlegg</span>
               <span slot="icon" class="mr-2"><eye-icon /></span
-            ></admin-button>
+            ></admin-button> -->
           </fieldset>
         </div>
 
@@ -262,11 +384,17 @@
             har mulighet til å se direkte fra begravelsen.
           </p>
 
-          <Input id="link" label="Direktelink" name="link" />
-          <admin-button
+          <Input
+            id="link"
+            label="Direktelink"
+            name="link"
+            data-location="streamlink"
+            @change="handleInputChange"
+          />
+          <!-- <admin-button
             ><span slot="text">Send link på sms</span
             ><span slot="icon" class="pr-2"><mail-icon /></span
-          ></admin-button>
+          ></admin-button> -->
           <h3
             class="pt-8 pb-2 mt-8 text-lg leading-6 font-medium text-gray-900"
           >
@@ -364,9 +492,8 @@ import SelectRelation from '@/components/ui/dropdowns/SelectRelation'
 import TextArea from '@/components/ui/form/TextArea'
 import RadioButton from '@/components/ui/form/RadioButton'
 import Label from '@/components/ui/typography/Label'
-import AdminButton from '@/components/ui/buttons/adminButton.vue'
-import MailIcon from '@/assets/svg/mail.svg?inline'
-import EyeIcon from '@/assets/svg/eye.svg?inline'
+// import AdminButton from '@/components/ui/buttons/adminButton.vue'
+// import MailIcon from '@/assets/svg/mail.svg?inline'
 import ChevronRight from '@/assets/svg/chevronRight.svg?inline'
 import Loader from '@/assets/svg/loader.svg?inline'
 
@@ -377,9 +504,8 @@ export default {
     TextArea,
     RadioButton,
     Label,
-    AdminButton,
-    MailIcon,
-    EyeIcon,
+    // AdminButton,
+    // MailIcon,
     ChevronRight,
     Loader,
   },
@@ -406,6 +532,11 @@ export default {
       person_information: 'person_information',
       avatarImage: null,
       gender: null,
+      memorypage: null,
+      liveStream: null,
+      allowCondolenses: null,
+      allowFlowerOrders: null,
+      allowFuneralRegistration: null,
     }
   },
   computed: {},
@@ -422,7 +553,6 @@ export default {
       })
     },
     handleRadio(e) {
-      console.log(e)
       const value = e.target.value
       const dataLocation = e.target.dataset.location
       this.changeField({
@@ -434,15 +564,6 @@ export default {
       this.avatarImage = e.target.files[0]
       console.log('const value ->', this.avatarImage)
     },
-
-    // handlePersonInformationChange({ value, dataLocation }) {
-    //   this.person_information[dataLocation] = value
-    //   this.isDirty = true
-    //   this.changeField({
-    //     value,
-    //     dataLocation,
-    //   })
-    // },
     async submit() {
       this.loading = true
       const response = await this.addObituary({ avatarImage: this.avatarImage })
