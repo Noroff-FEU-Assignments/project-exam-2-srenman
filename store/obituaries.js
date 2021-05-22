@@ -102,9 +102,14 @@ export const actions = {
         }
       )
       console.log('Image response in api call ->', imageResponse)
-      if (imageResponse) {
-        this.$router.push('/admin/obituary/create/step-2')
-      }
+
+      const profileImage = imageResponse.data.src
+      console.log('avatar image ->', profileImage)
+
+      const updateImageId = await this.$axios.$put(`/person/${personId}`, {
+        person_image_id: profileImage,
+      })
+      console.log('updated image id ->', updateImageId)
     } catch (error) {
       console.log('error ->', error)
     }

@@ -568,6 +568,7 @@ export default {
       this.loading = true
       const response = await this.addObituary({ avatarImage: this.avatarImage })
       console.log('Info ->', response)
+      // const updateImageId = await this.updateImageId()
       this.loading = false
       this.$router.push('/admin/obituary/create/step-2')
     },
