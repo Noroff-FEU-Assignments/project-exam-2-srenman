@@ -24,6 +24,7 @@
           :type="type"
           autocomplete="false"
           :required="required"
+          :value="value"
           @keyup="$emit('change', { value: inputValue, dataLocation })"
         />
         <div v-if="iconAfter" class="px-2">

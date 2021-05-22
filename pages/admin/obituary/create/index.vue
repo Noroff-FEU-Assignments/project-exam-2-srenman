@@ -4,7 +4,7 @@
       <div class="w-full h-60 bg-gray-200 relative px-10 mb-24">
         <img
           class="h-44 w-44 bg-black rounded-full absolute -bottom-16 right-2/4 translate-x-2/4 object-cover"
-          src="https://images.unsplash.com/photo-1544819576-82e8d26e7d22?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=934&q=80"
+          src=""
         />
         <h1 class="pt-8 font-semibold text-xl">{{ name }}</h1>
         <p>{{ personalNumber }} - {{ deceasedDate }}</p>
@@ -68,13 +68,38 @@
           />
           <Label class="text-sm font-medium text-gray-700 pb-2">Kjønn</Label>
           <div class="flex ml-2 mb-4">
-            <radio-button
-              label="Mann"
-              name="gender"
-              value="male"
-              class="mr-4"
-            />
-            <radio-button label="Kvinne" name="gender" value="female" />
+            <div class="flex items-center mr-4">
+              <input
+                id="male"
+                v-model="gender"
+                value="male"
+                type="radio"
+                data-location="gender"
+                class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
+                @click="handleRadio"
+              />
+              <label
+                for="male"
+                class="ml-3 block text-sm font-medium text-gray-700"
+                >Mann</label
+              >
+            </div>
+            <div class="flex items-center">
+              <input
+                id="female"
+                v-model="gender"
+                data-location="gender"
+                value="female"
+                type="radio"
+                class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
+                @click="handleRadio"
+              />
+              <label
+                for="female"
+                class="ml-3 block text-sm font-medium text-gray-700"
+                >Kvinne</label
+              >
+            </div>
           </div>
           <Input
             id="commune"
@@ -141,7 +166,7 @@
                   />
                 </label>
               </div>
-              <p class="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
+              <p class="text-xs text-gray-500">JPG up to 32MB</p>
             </div>
           </div>
         </fieldset>
@@ -157,9 +182,40 @@
             </h3>
             <Label>Minnesside</Label>
             <div class="flex mb-8">
-              <radio-button label="Ja" class="mr-10" />
-              <radio-button label="Nej" />
+              <div class="flex items-center mr-10">
+                <input
+                  id="memoryTrue"
+                  v-model="memorypage"
+                  type="radio"
+                  value="true"
+                  data-location="memorypage"
+                  class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
+                  @click="handleRadio"
+                />
+                <label
+                  for="memoryTrue"
+                  class="ml-3 block text-sm font-medium text-gray-700"
+                  >Ja</label
+                >
+              </div>
+              <div class="flex items-center mr-10">
+                <input
+                  id="memoryFalse"
+                  v-model="memorypage"
+                  type="radio"
+                  value="false"
+                  data-location="memorypage"
+                  class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
+                  @click="handleRadio"
+                />
+                <label
+                  for="memoryFalse"
+                  class="ml-3 block text-sm font-medium text-gray-700"
+                  >Nej</label
+                >
+              </div>
             </div>
+
             <Label>Livestream</Label>
             <div class="flex">
               <radio-button label="Ja" class="mr-10" />
@@ -349,6 +405,7 @@ export default {
       funeralDate: null,
       person_information: 'person_information',
       avatarImage: null,
+      gender: null,
     }
   },
   computed: {},
@@ -359,6 +416,15 @@ export default {
     handleInputChange({ value, dataLocation }) {
       this[dataLocation] = value
       this.isDirty = true
+      this.changeField({
+        value,
+        dataLocation,
+      })
+    },
+    handleRadio(e) {
+      console.log(e)
+      const value = e.target.value
+      const dataLocation = e.target.dataset.location
       this.changeField({
         value,
         dataLocation,

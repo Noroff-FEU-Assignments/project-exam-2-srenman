@@ -18,10 +18,10 @@
 
             <Input
               id="contactName"
-              v-model="contactName"
               data-location="contactName"
               label="Navn"
               name="contactName"
+              value="obituary.contactName"
               @change="handleInputChange"
             />
             <Input
@@ -68,9 +68,15 @@
           />
           <Label class="text-sm font-medium text-gray-700 pb-2">Kjønn</Label>
           <div class="flex ml-2 mb-4">
-            <radio-button label="Mann" class="mr-4" />
-            <radio-button label="Kvinne" />
+            <radio-button
+              v-model="gender"
+              value="male"
+              label="Mann"
+              class="mr-4"
+            />
+            <radio-button v-model="gender" value="female" label="Kvinne" />
           </div>
+          <span>Picked: {{ gender }}</span>
           <Input
             id="commune"
             v-model="commune"
@@ -362,60 +368,33 @@ export default {
   data() {
     return {
       loading: false,
-      obituary: {
-        name: 'Anker Olav Johanssen',
-        person_information: {
-          sex: 'Male',
-          commune: 'Vågan',
-          personalNumber: '1923.04.15',
-          deceasedDate: '2021.05.03',
-          placeOfDeath: 'Nordlands Sykehus',
-        },
-        funeral_information: {
-          birthday: '1923.04.15',
-          deceasedDate: '2021.05.03',
-          church: 'Borge Kirke',
-          cementary: 'Vik kirkegård',
-          date: '2021.05.23',
-          memoryPage: true,
-          livestream: true,
-          allowCondolences: true,
-          allowFlowerOrder: true,
-          allowRegisterAttendace: true,
-        },
-        contact: {
-          contactName: 'Jonas Johanssen',
-          contactEmail: 'johansen@mail.no',
-          contactTel: '95677849',
-          contactRelation: 'Child',
-        },
-        comment: 'Dette er en testkommentar',
-        bg_image_id:
-          'https://images.unsplash.com/photo-1474533883693-59a44dbb964e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2250&q=80',
-        person_image_id:
-          'https://images.unsplash.com/photo-1544819576-82e8d26e7d22?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=934&q=80',
-      },
+      obituary: {},
+      male: 'male',
+      female: 'female',
 
-      contactName: null,
-      contactEmail: null,
-      contactTel: null,
-      contactRelation: null,
-      notes: null,
-      name: null,
-      sex: null,
-      commune: null,
-      personalNumber: null,
-      deceasedDate: null,
-      placeOfDeath: null,
-      church: null,
-      cementary: null,
-      funeralDate: null,
-      person_information: 'person_information',
+      // contactName: null,
+      // contactEmail: null,
+      // contactTel: null,
+      // contactRelation: null,
+      // notes: null,
+      // name: null,
+      // sex: null,
+      // commune: null,
+      // personalNumber: null,
+      // deceasedDate: null,
+      // placeOfDeath: null,
+      // church: null,
+      // cementary: null,
+      // funeralDate: null,
+      // person_information: null,
     }
   },
   computed: {},
+  mounted() {
+    this.displayObituary()
+  },
   methods: {
-    ...mapActions('obituaries', ['addObituary']),
+    ...mapActions('obituaries', ['getObituary']),
     ...mapMutations('obituaries', ['changeField']),
 
     handleInputChange({ value, dataLocation }) {
@@ -426,21 +405,36 @@ export default {
         dataLocation,
       })
     },
-    // handlePersonInformationChange({ value, dataLocation }) {
-    //   this.person_information[dataLocation] = value
-    //   this.isDirty = true
-    //   this.changeField({
-    //     value,
-    //     dataLocation,
-    //   })
-    // },
+    async displayObituary() {
+      this.loading = true
+      const response = await this.getObituary(this.$route.params.id)
+      this.obituary = response.data
+      console.log('Current obituary ->', this.obituary)
+      this.loading = false
+    },
+
     async submit({ state }) {
       this.loading = true
-      const response = await this.addObituary()
+      const response = await this.editObituary()
       this.loading = false
 
       console.log(response)
     },
+    test() {
+      console.log('testet fungerar')
+    },
   },
 }
 </script>
+
+name: 'Anker Olav Johanssen', person_information: { sex: 'Male', commune:
+'Vågan', personalNumber: '1923.04.15', deceasedDate: '2021.05.03', placeOfDeath:
+'Nordlands Sykehus', }, funeral_information: { birthday: '1923.04.15',
+deceasedDate: '2021.05.03', church: 'Borge Kirke', cementary: 'Vik kirkegård',
+date: '2021.05.23', memoryPage: true, livestream: true, allowCondolences: true,
+allowFlowerOrder: true, allowRegisterAttendace: true, }, contact: { contactName:
+'Jonas Johanssen', contactEmail: 'johansen@mail.no', contactTel: '95677849',
+contactRelation: 'Child', }, comment: 'Dette er en testkommentar', bg_image_id:
+'https://images.unsplash.com/photo-1474533883693-59a44dbb964e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2250&q=80',
+person_image_id:
+'https://images.unsplash.com/photo-1544819576-82e8d26e7d22?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=934&q=80',

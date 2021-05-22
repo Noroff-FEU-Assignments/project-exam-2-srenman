@@ -19,6 +19,17 @@ export const actions = {
       console.log('get persons error ->', error)
     }
   },
+  async getObituary({ commit }, obituaryId) {
+    try {
+      const obituary = await this.$axios.$get(`/person/${obituaryId}`)
+      console.log('getting obituary by id', obituary)
+      commit('setCurrentObituary', obituary.data)
+      return obituary
+    } catch (error) {
+      console.log('get obituary error ->', error)
+    }
+  },
+
   async getPublicPersons() {
     try {
       const persons = await this.$axios.$get('/public/all')
@@ -106,6 +117,9 @@ export const actions = {
 export const mutations = {
   setPersons(state, persons) {
     Vue.set(state, 'persons', persons)
+  },
+  setCurrentObituary(state, obituary) {
+    Vue.set(state, 'currentObituary', obituary)
   },
   setCurrentPerson(state, person) {
     Vue.set(state, 'currentPerson', person)
