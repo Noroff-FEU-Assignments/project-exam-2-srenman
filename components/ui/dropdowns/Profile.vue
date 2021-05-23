@@ -12,7 +12,7 @@
         <span class="sr-only">Open user menu</span>
         <img
           class="h-8 w-8 rounded-full"
-          src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixqx=jiU6DFBkaq&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+          src="../../../assets/img/logo.png"
           alt=""
         />
       </button>
@@ -27,7 +27,7 @@
     >
       <div
         v-if="visible"
-        class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+        class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-50"
         role="menu"
         aria-orientation="vertical"
         aria-labelledby="user-menu"

@@ -167,7 +167,6 @@ export default {
         } catch (e) {
           this.errorMessage = e.response.data.error
           this.error = true
-          console.log(e.response.data)
         }
       } else {
         this.errorMessage = 'The passwords did not match'

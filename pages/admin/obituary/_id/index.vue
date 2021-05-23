@@ -3,8 +3,8 @@
     <form id="obituaryForm" @submit.prevent="submit">
       <div class="w-full h-60 bg-gray-200 relative px-10 mb-24">
         <img
-          class="h-44 w-44 bg-black rounded-full absolute -bottom-16 right-2/4 translate-x-2/4 object-cover"
-          src="https://images.unsplash.com/photo-1544819576-82e8d26e7d22?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=934&q=80"
+          class="h-44 w-44 bg-gray-100 rounded-full absolute -bottom-16 right-2/4 translate-x-2/4 object-cover"
+          src="@/assets/img/simple-avatar.png"
         />
         <h1 class="pt-8 font-semibold text-xl">{{ name }}</h1>
         <p>{{ personalNumber }} - {{ deceasedDate }}</p>
@@ -21,7 +21,7 @@
               data-location="contactName"
               label="Navn"
               name="contactName"
-              value="obituary.contactName"
+              :value="obituary.contactName"
               @change="handleInputChange"
             />
             <Input
@@ -31,6 +31,7 @@
               data-location="contactEmail"
               label="Epost"
               name="contactEmail"
+              :value="contactEmail"
               @change="handleInputChange"
             />
             <Input
@@ -39,6 +40,7 @@
               data-location="contactTel"
               label="Telefonnummer"
               name="contactTel"
+              :value="contactTel"
               @change="handleInputChange"
             />
             <select-relation label="Forhold til avdøde" />
@@ -49,6 +51,7 @@
               data-location="comment"
               label="Notater"
               name="notes"
+              :value="notes"
               @change="handleInputChange"
             />
           </fieldset>
@@ -64,19 +67,44 @@
             label="Fullt navn"
             name="name"
             data-location="name"
+            :value="name"
             @change="handleInputChange"
           />
           <Label class="text-sm font-medium text-gray-700 pb-2">Kjønn</Label>
           <div class="flex ml-2 mb-4">
-            <radio-button
-              v-model="gender"
-              value="male"
-              label="Mann"
-              class="mr-4"
-            />
-            <radio-button v-model="gender" value="female" label="Kvinne" />
+            <div class="flex items-center mr-4">
+              <input
+                id="male"
+                v-model="gender"
+                value="male"
+                type="radio"
+                data-location="gender"
+                class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
+                @click="handleRadio"
+              />
+              <label
+                for="male"
+                class="ml-3 block text-sm font-medium text-gray-700"
+                >Mann</label
+              >
+            </div>
+            <div class="flex items-center">
+              <input
+                id="female"
+                v-model="gender"
+                data-location="gender"
+                value="female"
+                type="radio"
+                class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
+                @click="handleRadio"
+              />
+              <label
+                for="female"
+                class="ml-3 block text-sm font-medium text-gray-700"
+                >Kvinne</label
+              >
+            </div>
           </div>
-          <span>Picked: {{ gender }}</span>
           <Input
             id="commune"
             v-model="commune"
@@ -130,7 +158,7 @@
               <div class="flex text-sm text-gray-600">
                 <label
                   for="file-upload"
-                  class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
+                  class="relative cursor-pointer mx-auto bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
                 >
                   <span>Upload a file</span>
                   <input
@@ -138,11 +166,11 @@
                     name="file-upload"
                     type="file"
                     class="sr-only"
+                    @change="onFileSelected"
                   />
                 </label>
-                <p class="pl-1">or drag and drop</p>
               </div>
-              <p class="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
+              <p class="text-xs text-gray-500">JPG up to 32MB</p>
             </div>
           </div>
         </fieldset>
@@ -158,13 +186,74 @@
             </h3>
             <Label>Minnesside</Label>
             <div class="flex mb-8">
-              <radio-button label="Ja" class="mr-10" />
-              <radio-button label="Nej" />
+              <div class="flex items-center mr-10">
+                <input
+                  id="memoryTrue"
+                  v-model="memorypage"
+                  type="radio"
+                  value="true"
+                  data-location="memorypage"
+                  class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
+                  @click="handleRadio"
+                />
+                <label
+                  for="memoryTrue"
+                  class="ml-3 block text-sm font-medium text-gray-700"
+                  >Ja</label
+                >
+              </div>
+              <div class="flex items-center mr-10">
+                <input
+                  id="memoryFalse"
+                  v-model="memorypage"
+                  type="radio"
+                  value="false"
+                  data-location="memorypage"
+                  class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
+                  @click="handleRadio"
+                />
+                <label
+                  for="memoryFalse"
+                  class="ml-3 block text-sm font-medium text-gray-700"
+                  >Nej</label
+                >
+              </div>
             </div>
+
             <Label>Livestream</Label>
-            <div class="flex">
-              <radio-button label="Ja" class="mr-10" />
-              <radio-button label="Nej" />
+            <div class="flex mb-8">
+              <div class="flex items-center mr-10">
+                <input
+                  id="livestreamTrue"
+                  v-model="liveStream"
+                  type="radio"
+                  value="true"
+                  data-location="liveStream"
+                  class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
+                  @click="handleRadio"
+                />
+                <label
+                  for="LivestreamTrue"
+                  class="ml-3 block text-sm font-medium text-gray-700"
+                  >Ja</label
+                >
+              </div>
+              <div class="flex items-center mr-10">
+                <input
+                  id="livestreamFalse"
+                  v-model="liveStream"
+                  type="radio"
+                  value="false"
+                  data-location="liveStream"
+                  class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
+                  @click="handleRadio"
+                />
+                <label
+                  for="livestreamFalse"
+                  class="ml-3 block text-sm font-medium text-gray-700"
+                  >Nej</label
+                >
+              </div>
             </div>
           </fieldset>
           <fieldset class="bg-white shadow sm:rounded-lg px-6 pb-10">
@@ -177,23 +266,115 @@
             </p>
             <Label>Tillat kondolanser</Label>
             <div class="flex mb-8">
-              <radio-button label="Ja" class="mr-10" />
-              <radio-button label="Nej" />
+              <div class="flex items-center mr-10">
+                <input
+                  id="condolensesTrue"
+                  v-model="allowCondolenses"
+                  type="radio"
+                  value="true"
+                  data-location="allowCondolenses"
+                  class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
+                  @click="handleRadio"
+                />
+                <label
+                  for="condolensesTrue"
+                  class="ml-3 block text-sm font-medium text-gray-700"
+                  >Ja</label
+                >
+              </div>
+              <div class="flex items-center mr-10">
+                <input
+                  id="condolencesFalse"
+                  v-model="allowCondolenses"
+                  type="radio"
+                  value="false"
+                  data-location="allowCondolenses"
+                  class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
+                  @click="handleRadio"
+                />
+                <label
+                  for="condolensesFalse"
+                  class="ml-3 block text-sm font-medium text-gray-700"
+                  >Nej</label
+                >
+              </div>
             </div>
             <Label>Blomsterbestilling</Label>
             <div class="flex mb-8">
-              <radio-button label="Ja" class="mr-10" />
-              <radio-button label="Nej" />
+              <div class="flex items-center mr-10">
+                <input
+                  id="flowerOrdersTrue"
+                  v-model="allowFlowerOrders"
+                  type="radio"
+                  value="true"
+                  data-location="allowFlowerOrders"
+                  class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
+                  @click="handleRadio"
+                />
+                <label
+                  for="flowerOrdersTrue"
+                  class="ml-3 block text-sm font-medium text-gray-700"
+                  >Ja</label
+                >
+              </div>
+              <div class="flex items-center mr-10">
+                <input
+                  id="flowerOrdersFalse"
+                  v-model="allowFlowerOrders"
+                  type="radio"
+                  value="false"
+                  data-location="allowFlowerOrders"
+                  class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
+                  @click="handleRadio"
+                />
+                <label
+                  for="flowerOrdersFalse"
+                  class="ml-3 block text-sm font-medium text-gray-700"
+                  >Nej</label
+                >
+              </div>
             </div>
             <Label>Deltakerregistrering</Label>
             <div class="flex mb-8">
-              <radio-button label="Ja" class="mr-10" />
-              <radio-button label="Nej" />
+              <div class="flex items-center mr-10">
+                <input
+                  id="funeralRegistrationTrue"
+                  v-model="allowFuneralRegistration"
+                  type="radio"
+                  value="true"
+                  data-location="allowFuneralRegistration"
+                  class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
+                  @click="handleRadio"
+                />
+                <label
+                  for="funeralRegistrationTrue"
+                  class="ml-3 block text-sm font-medium text-gray-700"
+                  >Ja</label
+                >
+              </div>
+              <div class="flex items-center mr-10">
+                <input
+                  id="funeralRegistrationFalse"
+                  v-model="allowFuneralRegistration"
+                  type="radio"
+                  value="false"
+                  data-location="allowFuneralRegistration"
+                  class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
+                  @click="handleRadio"
+                />
+                <label
+                  for="funeralRegistrationFalse"
+                  class="ml-3 block text-sm font-medium text-gray-700"
+                  >Nej</label
+                >
+              </div>
             </div>
-            <admin-button
+            <!-- 
+              Going to be implemented in the future
+              <admin-button
               ><span slot="text">Moderer inlegg</span>
               <span slot="icon" class="mr-2"><eye-icon /></span
-            ></admin-button>
+            ></admin-button> -->
           </fieldset>
         </div>
 
@@ -207,11 +388,17 @@
             har mulighet til å se direkte fra begravelsen.
           </p>
 
-          <Input id="link" label="Direktelink" name="link" />
-          <admin-button
+          <Input
+            id="link"
+            label="Direktelink"
+            name="link"
+            data-location="streamlink"
+            @change="handleInputChange"
+          />
+          <!-- <admin-button
             ><span slot="text">Send link på sms</span
             ><span slot="icon" class="pr-2"><mail-icon /></span
-          ></admin-button>
+          ></admin-button> -->
           <h3
             class="pt-8 pb-2 mt-8 text-lg leading-6 font-medium text-gray-900"
           >
@@ -232,48 +419,6 @@
           </p>
           <text-area label="Embed kode" />
         </fieldset>
-      </div>
-      <h2 class="px-20 mt-8 py-8 text-2xl leading-7 font-bold text-gray-700">
-        Dødsannonse
-      </h2>
-      <div class="bg-white shadow sm:rounded-lg px-6 py-10 mb-10 w-1/3 ml-20">
-        <Label>Last opp bilde av dødsannonse her</Label>
-        <div
-          class="w-full flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md"
-        >
-          <div class="space-y-1 text-center">
-            <svg
-              class="mx-auto h-12 w-12 text-gray-400"
-              stroke="currentColor"
-              fill="none"
-              viewBox="0 0 48 48"
-              aria-hidden="true"
-            >
-              <path
-                d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
-            <div class="flex text-sm text-gray-600">
-              <label
-                for="file-upload"
-                class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
-              >
-                <span>Upload a file</span>
-                <input
-                  id="file-upload"
-                  name="file-upload"
-                  type="file"
-                  class="sr-only"
-                />
-              </label>
-              <p class="pl-1">or drag and drop</p>
-            </div>
-            <p class="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
-          </div>
-        </div>
       </div>
     </form>
     <div
@@ -302,7 +447,7 @@
         <li class="md:flex-1">
           <!-- Upcoming Step -->
           <nuxt-link
-            to="/admin/create/step-2"
+            to="/admin/obituary/create/step-2"
             class="group pl-4 py-2 flex flex-col border-l-4 border-gray-200 hover:border-gray-300 md:pl-0 md:pt-4 md:pb-0 md:border-l-0 md:border-t-4"
           >
             <span
@@ -315,7 +460,7 @@
         <li class="md:flex-1">
           <!-- Upcoming Step -->
           <nuxt-link
-            to="/admin/create/step-3"
+            to="/admin/obituary/create/step-3"
             class="group pl-4 py-2 flex flex-col border-l-4 border-gray-200 hover:border-gray-300 md:pl-0 md:pt-4 md:pb-0 md:border-l-0 md:border-t-4"
           >
             <span
@@ -325,6 +470,13 @@
             <span class="text-sm font-medium">Minnesside</span>
           </nuxt-link>
         </li>
+        <!-- <nuxt-link
+          to="/admin/obituary/create/step-2"
+          class="bg-indigo-500 py-2 px-4 text-white rounded-md hover:bg-indigo-700 flex items-center"
+        >
+          <span>Gå videre</span>
+          <span><chevron-right /> </span>
+        </nuxt-link> -->
         <button
           type="submit"
           form="obituaryForm"
@@ -344,9 +496,8 @@ import SelectRelation from '@/components/ui/dropdowns/SelectRelation'
 import TextArea from '@/components/ui/form/TextArea'
 import RadioButton from '@/components/ui/form/RadioButton'
 import Label from '@/components/ui/typography/Label'
-import AdminButton from '@/components/ui/buttons/adminButton.vue'
-import MailIcon from '@/assets/svg/mail.svg?inline'
-import EyeIcon from '@/assets/svg/eye.svg?inline'
+// import AdminButton from '@/components/ui/buttons/adminButton.vue'
+// import MailIcon from '@/assets/svg/mail.svg?inline'
 import ChevronRight from '@/assets/svg/chevronRight.svg?inline'
 import Loader from '@/assets/svg/loader.svg?inline'
 
@@ -357,9 +508,8 @@ export default {
     TextArea,
     RadioButton,
     Label,
-    AdminButton,
-    MailIcon,
-    EyeIcon,
+    // AdminButton,
+    // MailIcon,
     ChevronRight,
     Loader,
   },
@@ -369,72 +519,78 @@ export default {
     return {
       loading: false,
       obituary: {},
-      male: 'male',
-      female: 'female',
-
-      // contactName: null,
-      // contactEmail: null,
-      // contactTel: null,
-      // contactRelation: null,
-      // notes: null,
-      // name: null,
-      // sex: null,
-      // commune: null,
-      // personalNumber: null,
-      // deceasedDate: null,
-      // placeOfDeath: null,
-      // church: null,
-      // cementary: null,
-      // funeralDate: null,
-      // person_information: null,
+      contactName: null,
+      contactEmail: null,
+      contactTel: null,
+      contactRelation: null,
+      notes: null,
+      name: null,
+      sex: null,
+      commune: null,
+      personalNumber: null,
+      deceasedDate: null,
+      placeOfDeath: null,
+      church: null,
+      cementary: null,
+      funeralDate: null,
+      person_information: 'person_information',
+      avatarImage: null,
+      gender: null,
+      memorypage: null,
+      liveStream: null,
+      allowCondolenses: null,
+      allowFlowerOrders: null,
+      allowFuneralRegistration: null,
     }
   },
   computed: {},
-  mounted() {
+  beforeMount() {
     this.displayObituary()
   },
   methods: {
-    ...mapActions('obituaries', ['getObituary']),
-    ...mapMutations('obituaries', ['changeField']),
+    ...mapActions('obituaries', [
+      'updateObituary',
+      'uploadImage',
+      'getObituary',
+    ]),
+    ...mapMutations('obituaries', ['editField']),
+
+    async displayObituary() {
+      this.loading = true
+      const response = await this.getObituary(this.$route.params.id)
+      this.obituary = response.data
+      this.loading = false
+    },
 
     handleInputChange({ value, dataLocation }) {
       this[dataLocation] = value
       this.isDirty = true
+      this.editField({
+        value,
+        dataLocation,
+      })
+    },
+    handleRadio(e) {
+      const value = e.target.value
+      const dataLocation = e.target.dataset.location
       this.changeField({
         value,
         dataLocation,
       })
     },
-    async displayObituary() {
-      this.loading = true
-      const response = await this.getObituary(this.$route.params.id)
-      this.obituary = response.data
-      console.log('Current obituary ->', this.obituary)
-      this.loading = false
+    onFileSelected(e) {
+      this.avatarImage = e.target.files[0]
     },
-
-    async submit({ state }) {
+    async submit() {
       this.loading = true
-      const response = await this.editObituary()
-      this.loading = false
-
+      const response = await this.updateObituary({
+        avatarImage: this.avatarImage,
+      })
       console.log(response)
-    },
-    test() {
-      console.log('testet fungerar')
+      // const updateImageId = await this.updateImageId()
+      this.loading = false
+      this.$router.push('/admin/obituary/create/step-2')
     },
   },
 }
 </script>
-
-name: 'Anker Olav Johanssen', person_information: { sex: 'Male', commune:
-'Vågan', personalNumber: '1923.04.15', deceasedDate: '2021.05.03', placeOfDeath:
-'Nordlands Sykehus', }, funeral_information: { birthday: '1923.04.15',
-deceasedDate: '2021.05.03', church: 'Borge Kirke', cementary: 'Vik kirkegård',
-date: '2021.05.23', memoryPage: true, livestream: true, allowCondolences: true,
-allowFlowerOrder: true, allowRegisterAttendace: true, }, contact: { contactName:
-'Jonas Johanssen', contactEmail: 'johansen@mail.no', contactTel: '95677849',
-contactRelation: 'Child', }, comment: 'Dette er en testkommentar', bg_image_id:
-'https://images.unsplash.com/photo-1474533883693-59a44dbb964e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2250&q=80',
-person_image_id:
-'https://images.unsplash.com/photo-1544819576-82e8d26e7d22?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=934&q=80',

@@ -2,6 +2,13 @@
   <div class="h-screen flex overflow-hidden bg-secondary-100">
     <div class="w-1/3 p-4 flex flex-col items-center justify-center relative">
       <img
+        v-if="person.bg_image_id === null"
+        class="h-screen absolute z-0"
+        src="https://images.unsplash.com/photo-1474533883693-59a44dbb964e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2250&q=80"
+        alt="background image"
+      />
+      <img
+        v-else
         class="h-screen absolute z-0"
         :src="person.bg_image_id"
         alt="background image"
@@ -9,6 +16,13 @@
       <div class="flex items-center my-10 z-10">
         <div class="h-40 w-44">
           <img
+            v-if="person.person_image_id === null"
+            class="h-36 w-36 rounded-full object-cover"
+            src="../assets/img/simple-avatar.png"
+            alt="Portrait"
+          />
+          <img
+            v-else
             class="h-36 w-36 rounded-full object-cover"
             :src="person.person_image_id"
             alt="Portrait"
@@ -18,15 +32,15 @@
         <div class="p-2 w-3/5">
           <h2 class="text-lg font-bold">{{ person.name }}</h2>
           <p class="font-semibold">
-            {{ person.person_information.birthday }} -
-            {{ person.person_information.deceased }}
+            {{ funeral.birthday }} -
+            {{ funeral.deceasedDate }}
           </p>
           <p>
-            fra <Bold>{{ person.funeral_information.church }}</Bold> til
-            <Bold> {{ person.funeral_information.cementary }} </Bold>
+            fra <Bold>{{ funeral.church }}</Bold> til
+            <Bold> {{ funeral.cementary }} </Bold>
           </p>
 
-          <p class="font-semibold">{{ person.funeral_information.date }}</p>
+          <p class="font-semibold">{{ funeral.date }}</p>
         </div>
       </div>
       <div class="my-10 z-10">
@@ -52,33 +66,29 @@
   </div>
 </template>
 <script>
-import Bold from '../components/ui/typography/Bold'
+// import Bold from '@/components/ui/typography/Bold'
+import { mapActions } from 'vuex'
 
 export default {
   components: {
-    Bold,
+    // Bold,
   },
   data() {
     return {
-      person: {
-        id: '123',
-        name: 'Ola Nordmann',
-        status: 'Aktiv',
-        person_information: {
-          birthday: '1934.04.23',
-          deceased: '2021.04.26',
-        },
-        funeral_information: {
-          church: 'Borge Kirke',
-          cementary: 'Vik kirkegård',
-          date: '8. Januar 2021 kl. 10.30',
-        },
-        bg_image_id:
-          'https://images.unsplash.com/photo-1474533883693-59a44dbb964e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2250&q=80',
-        person_image_id:
-          'https://images.unsplash.com/photo-1544819576-82e8d26e7d22?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=934&q=80',
-      },
+      person: {},
+      funeral: {},
     }
+  },
+  beforeMount() {
+    this.displayPerson()
+  },
+  methods: {
+    ...mapActions('obituaries', ['getPersonById']),
+    async displayPerson() {
+      const response = await this.getPersonById(this.$route.params.id)
+      this.person = response.data
+      this.funeral = response.data.funeral_information
+    },
   },
 }
 </script>

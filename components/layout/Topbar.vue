@@ -94,7 +94,6 @@ export default {
   },
   methods: {
     updateSearch(e) {
-      console.log('hej', e)
       // this.filter = e.value
     },
   },

@@ -8,9 +8,9 @@
       >
     </div>
     <Poem v-if="poem" :author="person.funeral_information.poemAuthor">
-      {{ person.funeral_information.poemText }}
+      {{ funeral.poemText }}
     </Poem>
-    <div class="bg-white w-10/12 mx-auto mb-20 rounded-lg border">
+    <div class="bg-white w-10/12 mx-auto my-20 rounded-lg border">
       <!-- Condolances Here -->
       <CondolanceLine author="Jens Nordmann" time="5 minuter">
         Dette var bare trist
@@ -47,10 +47,11 @@
     <AddMessage v-if="AddMessage" @click="AddMessage = false" />
   </div>
 </template>
+
 <script>
 import Heading from '@/components/ui/typography/Heading'
 import PrimaryButton from '@/components/ui/buttons/PrimaryButton'
-// import Poem from '@/components/ui/typography/Poem'
+import Poem from '@/components/ui/typography/Poem'
 import CondolanceLine from '@/components/condolences/CondolanceLine'
 import MailIcon from '@/assets/svg/mail.svg?inline'
 import AddMessage from '@/components/condolences/AddMessage'
@@ -60,7 +61,7 @@ export default {
   components: {
     Heading,
     PrimaryButton,
-    // Poem,
+    Poem,
     CondolanceLine,
     MailIcon,
     AddMessage,
@@ -69,10 +70,11 @@ export default {
   data() {
     return {
       AddMessage: false,
-
       person: {},
+      funeral: {},
     }
   },
+
   beforeMount() {
     this.displayPerson()
   },
@@ -83,7 +85,7 @@ export default {
       this.loading = true
       const response = await this.getPersonById(this.$route.params.id)
       this.person = response.data
-      console.log('person ->', this.person)
+      this.funeral = response.data.funeral_information
       this.loading = false
     },
   },

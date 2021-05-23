@@ -158,9 +158,7 @@ export default {
     async displayObituaries() {
       this.loading = true
       const response = await this.getPublicPersons()
-      console.log('førsta->', response)
       this.obituaries = response.data
-      console.log('andra ->', this.obituaries)
       this.loading = false
     },
     updateSearch(e) {

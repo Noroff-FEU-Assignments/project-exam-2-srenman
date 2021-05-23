@@ -4,7 +4,14 @@
       <div class="flex items-center">
         <div class="flex-shrink-0 h-10 w-10">
           <img
-            class="h-10 w-10 rounded-full"
+            v-if="data.person_image_id === null"
+            class="h-10 w-10 rounded-full object-cover"
+            src="../../../assets/img/simple-avatar.png"
+            alt="Portrett"
+          />
+          <img
+            v-else
+            class="h-10 w-10 rounded-full object-cover"
             :src="data.person_image_id"
             alt="Portrett"
           />
@@ -26,13 +33,15 @@
         {{ data.funeral_information.church }}
       </div>
     </td>
-    <td class="px-6 py-4 whitespace-nowrap">
+    <!--
+      To be implemented in future
+       <td class="px-6 py-4 whitespace-nowrap">
       <span
         class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"
       >
         {{ data.status }}
       </span>
-    </td>
+    </td> -->
 
     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
       <nuxt-link

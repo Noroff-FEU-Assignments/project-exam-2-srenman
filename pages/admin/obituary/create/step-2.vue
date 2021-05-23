@@ -217,29 +217,16 @@ export default {
     },
     onFileSelected(e) {
       this.obitauryImage = e.target.files[0]
-      console.log('const value ->', this.obituaryImage)
     },
     async submit() {
       this.loading = true
       const response = await this.addFuneralInformation({
         obituaryImage: this.obituaryImage,
       })
-      console.log('Info ->', response)
+      console.log(response)
       this.loading = false
       this.$router.push('/admin/obituary/create/step-3')
     },
   },
 }
 </script>
-
-name: 'Anker Olav Johanssen', person_information: { sex: 'Male', commune:
-'Vågan', personalNumber: '1923.04.15', deceasedDate: '2021.05.03', placeOfDeath:
-'Nordlands Sykehus', }, funeral_information: { birthday: '1923.04.15',
-deceasedDate: '2021.05.03', church: 'Borge Kirke', cementary: 'Vik kirkegård',
-date: '2021.05.23', memoryPage: true, livestream: true, allowCondolences: true,
-allowFlowerOrder: true, allowRegisterAttendace: true, }, contact: { contactName:
-'Jonas Johanssen', contactEmail: 'johansen@mail.no', contactTel: '95677849',
-contactRelation: 'Child', }, comment: 'Dette er en testkommentar', bg_image_id:
-'https://images.unsplash.com/photo-1474533883693-59a44dbb964e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2250&q=80',
-person_image_id:
-'https://images.unsplash.com/photo-1544819576-82e8d26e7d22?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=934&q=80',

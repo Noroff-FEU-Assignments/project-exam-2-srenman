@@ -13,15 +13,15 @@
               <LocationIcon class="text-gray-500" />
             </div>
             <div>
-              <p>Fra {{ person.funeral_information.church }}</p>
-              <p>til {{ person.funeral_information.cementary }}</p>
+              <p>Fra {{ funeral.church }}</p>
+              <p>til {{ funeral.cementary }}</p>
             </div>
           </div>
           <div class="flex">
             <div class="mr-2">
               <CalendarIcon class="text-gray-500" />
             </div>
-            <div>{{ person.funeral_information.date }}</div>
+            <div>{{ funeral.date }}</div>
           </div>
         </div>
         <div class="flex-1">
@@ -72,7 +72,7 @@ import WriteIcon from '@/assets/svg/write.svg?inline'
 import ExitIcon from '@/assets/svg/exitPage.svg?inline'
 import RegisterAttendance from '@/components/funeral/RegisterAttendance'
 import PrimaryLink from '@/components/ui/buttons/PrimaryLink'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   components: {
@@ -92,14 +92,28 @@ export default {
   data() {
     return {
       RegisterAttendance: false,
-
       person: {},
+      funeral: {},
     }
   },
   computed: {
     ...mapGetters({
       getCurrentPerson: 'obituaries/getCurrentPerson',
     }),
+  },
+  beforeMount() {
+    this.displayPerson()
+  },
+
+  methods: {
+    ...mapActions('obituaries', ['getPersonById']),
+    async displayPerson() {
+      this.loading = true
+      const response = await this.getPersonById(this.$route.params.id)
+      this.person = response.data
+      this.funeral = response.data.funeral_information
+      this.loading = false
+    },
   },
 }
 </script>

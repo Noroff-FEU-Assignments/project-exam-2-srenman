@@ -4,11 +4,25 @@
   >
     <div class="flex-shrink-0 relative">
       <img
+        v-if="data.bg_image_id === null"
+        class="h-48 w-full object-cover"
+        src="https://images.unsplash.com/photo-1474533883693-59a44dbb964e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2250&q=80"
+        alt="Bakgrundsbilde"
+      />
+      <img
+        v-else
         class="h-48 w-full object-cover"
         :src="data.bg_image_id"
         alt="Bakgrundsbilde"
       />
       <img
+        v-if="data.person_image_id === null"
+        class="h-44 w-44 rounded-full absolute top-2 left-16 object-cover"
+        src="../../assets/img/simple-avatar.png"
+        alt="Portrett"
+      />
+      <img
+        v-else
         class="h-44 w-44 rounded-full absolute top-2 left-16 object-cover"
         :src="data.person_image_id"
         alt="Portrett"

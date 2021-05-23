@@ -29,20 +29,23 @@
         <form class="space-y-6" @submit.prevent="submit">
           <Input
             id="email"
+            v-model="email"
             :error="getError('email')"
-            type="text"
             label="Email adress"
             name="email"
-            :value.sync="user.email"
+            data-location="email"
+            @change="handleInputChange"
           />
 
           <Input
             id="password"
+            v-model="password"
             :error="getError('password')"
             type="password"
             label="Password"
             name="password"
-            :value.sync="user.password"
+            data-location="password"
+            @change="handleInputChange"
           />
 
           <div>
@@ -61,7 +64,7 @@
 <script>
 import Logo from '@/assets/Logo'
 import Input from '@/components/ui/form/Input'
-import { mapActions } from 'vuex'
+import { mapActions, mapMutations } from 'vuex'
 import Loader from '@/assets/svg/loader.svg?inline'
 
 export default {
@@ -74,15 +77,14 @@ export default {
   data() {
     return {
       loading: false,
-      user: {
-        email: 'sandra@iotek.no',
-        password: 'password',
-      },
+      email: null,
+      password: null,
       errors: {},
     }
   },
   methods: {
     ...mapActions('auth', ['login']),
+    ...mapMutations('auth', ['changeField']),
 
     isError(prop) {
       if (!this.errors) return false
@@ -92,12 +94,19 @@ export default {
       return this.isError(prop) ? this.errors[prop][0] : ''
     },
 
+    handleInputChange({ value, dataLocation }) {
+      this[dataLocation] = value
+      this.isDirty = true
+      this.changeField({
+        value,
+        dataLocation,
+      })
+    },
+
     async submit() {
       this.loading = true
-      const response = await this.login(this.user)
+      const response = await this.login()
       this.loading = false
-
-      console.log(response)
 
       this.errors = response.errors
       if (response.error === 'Unauthorized') {

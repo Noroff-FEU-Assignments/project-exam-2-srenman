@@ -3,14 +3,14 @@
     <form id="obituaryForm" @submit.prevent="submit">
       <div class="w-full h-60 bg-gray-200 relative px-10 mb-24">
         <img
-          class="h-44 w-44 bg-gray-100 rounded-full absolute -bottom-16 right-2/4 translate-x-2/4 object-cover"
+          class="h-44 w-44 bg-gray-100 rounded-full absolute -bottom-16 right-2/4 lg:translate-x-2/4 object-cover"
           src="@/assets/img/simple-avatar.png"
         />
         <h1 class="pt-8 font-semibold text-xl">{{ name }}</h1>
         <p>{{ personalNumber }} - {{ deceasedDate }}</p>
       </div>
-      <div class="flex justify-between px-20">
-        <div class="w-1/3">
+      <div class="lg:flex justify-between px-4 sm:px-20">
+        <div class="w-full mb-10 lg:mb-0 lg:w-1/3">
           <fieldset class="bg-white shadow sm:rounded-lg px-6 pb-10 mb-10">
             <h3 class="text-lg leading-6 font-medium text-gray-900 py-8">
               Kontaktperson
@@ -54,7 +54,9 @@
           </fieldset>
         </div>
 
-        <fieldset class="bg-white shadow sm:rounded-lg w-3/5 px-6 pb-10">
+        <fieldset
+          class="bg-white shadow sm:rounded-lg w-full lg:w-3/5 px-6 pb-10"
+        >
           <h3 class="py-8 text-lg leading-6 font-medium text-gray-900">
             Avdøde
           </h3>
@@ -171,11 +173,13 @@
           </div>
         </fieldset>
       </div>
-      <h2 class="px-20 mt-8 py-8 text-2xl leading-7 font-bold text-gray-700">
+      <h2
+        class="px-4 sm:px-20 mt-8 py-8 text-2xl leading-7 font-bold text-gray-700"
+      >
         Livestream
       </h2>
-      <div class="flex justify-between px-20">
-        <div class="w-1/3">
+      <div class="lg:flex justify-between px-4 sm:px-20">
+        <div class="w-full mb-10 lg:mb-0 lg:w-1/3">
           <fieldset class="bg-white shadow sm:rounded-lg px-6 pb-10 mb-10">
             <h3 class="text-lg leading-6 font-medium text-gray-900 py-8">
               Digitalt
@@ -374,7 +378,9 @@
           </fieldset>
         </div>
 
-        <fieldset class="bg-white shadow sm:rounded-lg w-3/5 px-6 pb-10">
+        <fieldset
+          class="bg-white shadow sm:rounded-lg w-full lg:w-3/5 px-6 pb-10"
+        >
           <h3 class="pt-8 pb-2 text-lg leading-6 font-medium text-gray-900">
             Link til direktsending
           </h3>
@@ -562,7 +568,6 @@ export default {
     },
     onFileSelected(e) {
       this.avatarImage = e.target.files[0]
-      console.log('const value ->', this.avatarImage)
     },
     async submit() {
       this.loading = true

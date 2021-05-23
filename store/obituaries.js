@@ -13,7 +13,6 @@ export const actions = {
     try {
       const persons = await this.$axios.$get('/person')
       commit('setPersons', persons.data)
-      console.log('api call persons ->', persons)
       return persons
     } catch (error) {
       console.log('get persons error ->', error)
@@ -22,7 +21,6 @@ export const actions = {
   async getObituary({ commit }, obituaryId) {
     try {
       const obituary = await this.$axios.$get(`/person/${obituaryId}`)
-      console.log('getting obituary by id', obituary)
       commit('setCurrentObituary', obituary.data)
       return obituary
     } catch (error) {
@@ -41,13 +39,13 @@ export const actions = {
   async getPersonById({ commit }, personId) {
     try {
       const person = await this.$axios.$get(`/public/all/${personId}`)
-      console.log('getting person by id', person)
       commit('setCurrentPerson', person.data)
       return person
     } catch (error) {
       console.log('get person error ->', error)
     }
   },
+
   async addObituary({ state }, data) {
     const { avatarImage } = data
     try {
@@ -87,7 +85,6 @@ export const actions = {
         person_image_id: info.person_image_id,
         completed_at: info.completeDate,
       })
-      console.log('response ->', obituary)
       const personId = obituary.data.id
       const fd = new FormData()
       fd.append('file', avatarImage)
@@ -101,15 +98,12 @@ export const actions = {
           },
         }
       )
-      console.log('Image response in api call ->', imageResponse)
 
       const profileImage = imageResponse.data.src
-      console.log('avatar image ->', profileImage)
 
       const updateImageId = await this.$axios.$put(`/person/${personId}`, {
         person_image_id: profileImage,
       })
-      console.log('updated image id ->', updateImageId)
     } catch (error) {
       console.log('error ->', error)
     }
@@ -131,6 +125,9 @@ export const mutations = {
   },
   changeField: (state, event) => {
     state.createObituary[event.dataLocation] = event.value
+  },
+  editField: (state, event) => {
+    state.currentObituary[event.dataLocation] = event.value
   },
   clearState(state) {
     Object.assign(state, getDefaultState())

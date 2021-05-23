@@ -3,6 +3,7 @@ import Vue from 'vue'
 const getDefaultState = () => ({
   company: null,
   token: null,
+  user: {},
 })
 
 export const state = getDefaultState
@@ -10,12 +11,6 @@ export const state = getDefaultState
 export const actions = {
   async registerTenant({ commit }, data) {
     try {
-      console.log({
-        company: data.company,
-        name: data.name,
-        email: data.email,
-        password: data.password,
-      })
       const authRes = await this.$axios.$post('auth/register', {
         company: data.company,
         name: data.name,
@@ -28,16 +23,19 @@ export const actions = {
     }
   },
 
-  async login({ commit, dispatch }, user) {
+  async login({ commit, dispatch, state }) {
     try {
-      const authRes = await this.$axios.$post('/auth/login', user)
+      const user = state.user
+      const authRes = await this.$axios.$post('/auth/login', {
+        email: user.email,
+        password: user.password,
+      })
       commit('setToken', authRes.access_token)
       this.$router.push('/admin')
       dispatch('getCompany')
       dispatch('obituaries/getPersons', null, { root: true })
       return { auth: true }
     } catch (error) {
-      console.log(error)
       return {
         auth: false,
         error: error.response?.data.error,
@@ -74,6 +72,9 @@ export const mutations = {
     Object.assign(state, getDefaultState())
     localStorage.clear()
     this.$router.replace('/admin/auth/login')
+  },
+  changeField: (state, event) => {
+    state.user[event.dataLocation] = event.value
   },
 }
 
